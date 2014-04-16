@@ -1,0 +1,80 @@
+#pragma once
+
+#ifndef _EXCEPTION_LIST_H_
+#define _EXCEPTION_LIST_H_ 1
+
+#include <exception>
+#include <list>
+
+namespace std { 
+	namespace experimental {
+		namespace parallel {
+
+			/// <summary>
+			///     The exception_list is inteded to aggregate exceptions, 
+			///     which can be later extracted and processed. 
+			/// </summary>
+			class exception_list : public exception
+			{
+			public:
+				typedef std::exception_ptr value_type;
+				typedef const value_type& reference;
+				typedef const value_type& const_reference;
+				typedef std::list<std::exception_ptr>::size_type size_type;
+				typedef std::list<std::exception_ptr>::iterator iterator;
+				typedef std::list<std::exception_ptr>::const_iterator const_iterator;
+
+				/// <summary>
+				///     Constructs a new <c>exception_list</c> object.
+				/// </summary>
+				/// <param name="_E">
+				///	   Captured exception
+				/// </param>
+				explicit exception_list(std::exception_ptr&& _E)
+				{
+					_Exception_list.push_back(std::forward<std::exception_ptr>(_E));
+				}
+
+				/// <summary>
+				///     Constructs a new <c>exception_list</c> object.
+				/// </summary>
+				/// <param name="_E">
+				///     List of captured exceptions
+				/// </param>
+				explicit exception_list(std::list<exception_ptr>&& _E) :
+					_Exception_list(std::forward<std::list<std::exception_ptr> >(_E))
+				{
+				}
+
+				/// <summary>
+				///     Get the number of exceptions.
+				/// </summary>
+				size_type size() const _NOEXCEPT
+				{
+					return _Exception_list.size();
+				}
+
+					/// <summary>
+					///     Returns the iterator to first exception in container.
+					/// </summary>
+					const_iterator begin() const _NOEXCEPT
+				{
+					return _Exception_list.begin();
+				}
+
+					/// <summary>
+					///     Returns the iterator to the end (element after last element).
+					/// </summary>
+					const_iterator end() const _NOEXCEPT
+				{
+					return _Exception_list.end();
+				}
+			private:
+				std::list<std::exception_ptr> _Exception_list;
+			};
+
+		}
+	}
+} // std::experimental::parallel
+
+#endif // _EXCEPTION_LIST_H_

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ImageCartoonizerGUI</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.2.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.2.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.2.0/js/ui.js"></script>
+
+    <!-- ImageCartoonizerGUI references -->
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/default.js"></script>
+</head>
+
+    
+<style type="text/css">
+.meter-wrap, .meter-value{
+        -moz-border-radius: 25px;
+        -webkit-border-radius: 25px;
+        border-radius: 25px;
+        padding: 10px;
+        -webkit-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+        -moz-box-shadow   : inset 0 -1px 1px rgba(255,255,255,0.3);
+        box-shadow        : inset 0 -1px 1px rgba(255,255,255,0.3);
+        width: 90%; height: 3%;
+        position: fixed; left: 5%; top: 80%;
+        background: #808080
+}
+
+</style>
+
+<body style="visibility: visible;">
+    <button id="load" onclick="LoadImage()" style="position: fixed; left: 20%; top: 10%;">Load Image</button>
+    <p></p>
+    <button id="flipimage" onclick="TransformImage(false)" style="position: fixed; left: 60%; top: 10%;">Transform Image</button>
+    <p></p>
+    <button id="flipimage" onclick="TransformImage(true)" style="position: fixed; left: 72%; top: 10%;">Parallel Transform Image</button>
+    <p></p>
+    <img id="origImage" alt="Original Image" width="40%" height="50%" style="position: fixed; left: 5%; top: 20%;"/> 
+    <img id="editedImage" alt="Edited Image" width="40%" height="50%" style="position: fixed; left: 55%; top: 20%;"/> 
+
+    <div class="meter-wrap" style="cursor: pointer">
+        <div id="progress" class="meter-value" style="background-color: DarkBlue; width: 0%; visibility:hidden"></div>
+    </div>
+
+    <div id="dbg" style="position: fixed; left: 5%; top: 90%; font:caption"></div>
+
+</body>
+</html>
