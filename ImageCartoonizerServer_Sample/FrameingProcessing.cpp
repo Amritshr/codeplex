@@ -120,7 +120,7 @@ void FrameProcessing::ApplyColorSimplifier(unsigned int startHeight, unsigned in
 	{
 		std::experimental::parallel::for_each(execPolicy, begin(bnd), end(bnd), [&](index<2> idx)
 		{
-			SimplifyIndexOptimized(m_pBufferImage, idx[0] + startWidth, idx[1] + startHeight);
+			SimplifyIndexOptimized(m_pBufferImage, static_cast<int>(idx[0]) + startWidth, static_cast<int>(idx[1]) + startHeight);
 			if (idx[1] == 0)
 			{
 				std::lock_guard<std::mutex> lockHolder(progressCritSec);
@@ -192,8 +192,8 @@ void FrameProcessing::ApplyEdgeDetectionParallel(unsigned int startHeight, unsig
 
 	std::experimental::parallel::for_each(execPolicy, begin(bnd), end(bnd), [&](index<2> idx)
 	{
-		int y = idx[0] + startHeight;
-		int x = idx[1] + startWidth;
+		int y = static_cast<int>(idx[0]) + startHeight;
+		int x = static_cast<int>(idx[1]) + startWidth;
 		float Sy, Su, Sv;
 		float Ay, Au, Av;
 
