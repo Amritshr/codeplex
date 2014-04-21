@@ -52,6 +52,20 @@ namespace ParallelSTL_Tests
 
 			// Compare empty collection to another none empty
 			Assert::IsTrue(equal(par, std::begin(vec_empty), std::end(vec_empty), std::begin(vec_not_equal2_end)));
+
+			// Equals with 4 input iterators
+
+			// Compare empty collections
+			Assert::IsTrue(equal(par, std::begin(vec_empty), std::end(vec_empty), std::begin(vec_empty2), std::end(vec_empty2)));
+
+			// Last element different
+			Assert::IsFalse(equal(par, std::begin(vec_not_equal_end), std::end(vec_not_equal_end), std::begin(vec_not_equal2_end), std::end(vec_not_equal2_end)));
+
+			// First element different
+			Assert::IsFalse(equal(par, std::begin(vec_not_equal_begin), std::end(vec_not_equal_begin), std::begin(vec_not_equal2_begin), std::end(vec_not_equal2_begin)));
+
+			// Compare empty collection to another none empty
+			Assert::IsTrue(equal(par, std::begin(vec_empty), std::end(vec_empty), std::begin(vec_not_equal2_end), std::end(vec_not_equal2_end)));
 		}
 
 		template<typename _IterCat>
@@ -112,6 +126,66 @@ namespace ParallelSTL_Tests
 			RunEqualElementPredicate<random_access_iterator_tag>(false);
 			RunEqualElementPredicate<forward_iterator_tag>(false);
 			RunEqualElementPredicate<input_iterator_tag>(false);	
+		}
+
+		template<typename _IterCat>
+		void RunEqualElement4Params(bool _Equal)
+		{
+			{  // seq
+				EqualAlgoTest<_IterCat> _Alg(_Equal);
+				_Alg.set_result(equal(seq, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest()));
+			}
+
+			{  //par
+				EqualAlgoTest<_IterCat> _Alg(_Equal);
+				_Alg.set_result(equal(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest()));
+			}
+
+			{  //vec
+				EqualAlgoTest<_IterCat> _Alg(_Equal);
+				_Alg.set_result(equal(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest()));
+			}
+		}
+
+		TEST_METHOD(EqualElement4Params)
+		{
+			RunEqualElement4Params<random_access_iterator_tag>(true);
+			RunEqualElement4Params<forward_iterator_tag>(true);
+			RunEqualElement4Params<input_iterator_tag>(true);
+
+			RunEqualElement4Params<random_access_iterator_tag>(false);
+			RunEqualElement4Params<forward_iterator_tag>(false);
+			RunEqualElement4Params<input_iterator_tag>(false);
+		}
+
+		template<typename _IterCat>
+		void RunEqualElementPredicate4Params(bool _Equal)
+		{
+			{  // seq
+				EqualAlgoTest<_IterCat> _Alg(_Equal);
+				_Alg.set_result(equal(seq, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest(), _Alg.equal()));
+			}
+
+			{  //par
+				EqualAlgoTest<_IterCat> _Alg(_Equal);
+				_Alg.set_result(equal(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest(), _Alg.equal()));
+			}
+
+			{  //vec
+				EqualAlgoTest<_IterCat> _Alg(_Equal);
+				_Alg.set_result(equal(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest(), _Alg.equal()));
+			}
+		}
+
+		TEST_METHOD(EqualElementCallback4Params)
+		{
+			RunEqualElementPredicate4Params<random_access_iterator_tag>(true);
+			RunEqualElementPredicate4Params<forward_iterator_tag>(true);
+			RunEqualElementPredicate4Params<input_iterator_tag>(true);
+
+			RunEqualElementPredicate4Params<random_access_iterator_tag>(false);
+			RunEqualElementPredicate4Params<forward_iterator_tag>(false);
+			RunEqualElementPredicate4Params<input_iterator_tag>(false);
 		}
 	};
 } // ParallelSTL_Tests

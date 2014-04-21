@@ -86,6 +86,14 @@ namespace ParallelSTL_Tests
 			});
 
 			_Tester.test([&](){
+				bool_res = equal(_Policy, _First, _Last, _First, _Last);
+			});
+
+			_Tester.test([&](){
+				bool_res = equal(_Policy, _First, _Last, _First, _Last, [](value_type, value_type){ return true; });
+			});
+
+			_Tester.test([&](){
 				value_res = reduce(_Policy, _First, _Last);
 			});
 
