@@ -61,8 +61,10 @@ namespace std {
 
 				_EXP_IMPL _Threadpool_chore::~_Threadpool_chore()
 				{
-					if (_Work)
+					if (_Work) {
 						static_cast<IWorkItemHandler*>(_Work)->Release();
+						_Work = nullptr;
+					}
 				}
 
 				_EXP_IMPL void __cdecl schedule_chore(_Threadpool_chore *_Chore)

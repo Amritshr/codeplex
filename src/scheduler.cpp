@@ -20,8 +20,10 @@ namespace std {
 
 				_EXP_IMPL _Threadpool_chore::~_Threadpool_chore()
 				{
-					if (_Work != nullptr)
+					if (_Work != nullptr) {
 						::CloseThreadpoolWork(static_cast<PTP_WORK>(_Work));
+						_Work = nullptr;
+					}						
 				}
 
 				_EXP_IMPL void __cdecl _Threadpool_chore::reschedule()

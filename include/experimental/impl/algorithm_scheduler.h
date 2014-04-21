@@ -12,6 +12,7 @@ namespace std {
 
 				class _Threadpool_chore
 				{
+				protected:
 					friend _EXP_IMPL void __cdecl schedule_chore(_Threadpool_chore*);
 					void* _Work; //PTP_WORK
 

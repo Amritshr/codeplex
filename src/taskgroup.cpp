@@ -5,8 +5,6 @@
 #include <experimental\impl\taskgroup.h>
 #include <experimental\impl\algorithm_impl.h>
 
-#include <atlcore.h>
-
 namespace std {
 	namespace experimental {
 		namespace parallel {
@@ -19,6 +17,42 @@ namespace std {
 				class WorkStealingQueueFactory;
 				class WorkStealingQueueSet;
 
+				bool IsWindows7()
+				{
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+					enum _OsValueType { Win7, Initial, NonWin7 };
+
+					static volatile _OsValueType _OsType = Initial;
+
+					if (_OsType == Initial) {
+
+						OSVERSIONINFOEX _osvi = {};
+						_osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+
+						// The Causality is supported on Windows version higher than Windows 8
+						_osvi.dwMajorVersion = 6;
+						_osvi.dwMinorVersion = 1;
+
+						DWORDLONG _conditionMask = 0;
+						VER_SET_CONDITION(_conditionMask, VER_MAJORVERSION, VER_EQUAL);
+						VER_SET_CONDITION(_conditionMask, VER_MINORVERSION, VER_EQUAL);
+
+						if (::VerifyVersionInfo(&_osvi, VER_MAJORVERSION | VER_MINORVERSION, _conditionMask))
+						{
+							_OsType = Win7;
+							return true;
+						}
+						else {
+							_OsType = NonWin7;
+							return false;
+						}
+					}
+
+					return _OsType == Win7;
+#else
+					return false;
+#endif					
+				}
 
 				// The Workstealing queue is built on following 2 assumptions:
 				// 1. Workload of each chore is relatively light
@@ -79,6 +113,13 @@ namespace std {
 					{
 						m_wsqStatus = QueueCreated;
 						reset();
+					}
+
+					~WorkStealingQueue()
+					{
+						// Leak the thread pool item during shutdown for Win7
+						if (IsWindows7())
+							_Work = nullptr;
 					}
 
 					void reset()
@@ -394,7 +435,6 @@ namespace std {
 					_ASSERT(m_taskGroup);
 					return m_taskGroup->m_queue;
 				}
-
 			}
 		}
 	}

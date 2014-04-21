@@ -12,7 +12,7 @@ namespace std {
 
 				class _Threadpool_chore
 				{
-				private:
+				protected:
 					friend _EXP_IMPL void __cdecl schedule_chore(_Threadpool_chore*);
 					void *_Work; // Windows::System::Threading::WorkItemHandler^
 
