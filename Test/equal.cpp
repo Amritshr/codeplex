@@ -38,34 +38,50 @@ namespace ParallelSTL_Tests
 
 		TEST_METHOD(EqualElementEdgeCases)
 		{
-			// Compare empty collections
 			std::vector<int> vec_empty, vec_empty2;
+			std::vector<int> vec_not_equal_first = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, vec_not_equal2_first = { 2, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+			std::vector<int> vec_not_equal_last = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, vec_not_equal2_last = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 11 };
+			std::vector<int> vec_diff_length = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, vec_diff_length2 = { 1, 2, 3, 4, 5 };
+			std::vector<int> vec_empty_non = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, vec_empty_non2;
+
+
+			// Equals with 3 iterator parameters
+
+			// Compare empty collections
 			Assert::IsTrue(equal(par, std::begin(vec_empty), std::end(vec_empty), std::begin(vec_empty2)));
 
 			// Last element different
-			std::vector<int> vec_not_equal_end = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, vec_not_equal2_end = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 11 };
-			Assert::IsFalse(equal(par, std::begin(vec_not_equal_end), std::end(vec_not_equal_end), std::begin(vec_not_equal2_end)));
+			Assert::IsFalse(equal(par, std::begin(vec_not_equal_last), std::end(vec_not_equal_last), std::begin(vec_not_equal2_last)));
 
 			// First element different
-			std::vector<int> vec_not_equal_begin = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, vec_not_equal2_begin = { 2, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-			Assert::IsFalse(equal(par, std::begin(vec_not_equal_begin), std::end(vec_not_equal_begin), std::begin(vec_not_equal2_begin)));
+			Assert::IsFalse(equal(par, std::begin(vec_not_equal_first), std::end(vec_not_equal_first), std::begin(vec_not_equal2_first)));
 
-			// Compare empty collection to another none empty
-			Assert::IsTrue(equal(par, std::begin(vec_empty), std::end(vec_empty), std::begin(vec_not_equal2_end)));
+			// Compare empty collection to non-empty
+			Assert::IsTrue(equal(par, std::begin(vec_empty), std::end(vec_empty), std::begin(vec_not_equal2_last)));
 
-			// Equals with 4 input iterators
+
+			// Equals with 4 iterator parameters
 
 			// Compare empty collections
 			Assert::IsTrue(equal(par, std::begin(vec_empty), std::end(vec_empty), std::begin(vec_empty2), std::end(vec_empty2)));
 
 			// Last element different
-			Assert::IsFalse(equal(par, std::begin(vec_not_equal_end), std::end(vec_not_equal_end), std::begin(vec_not_equal2_end), std::end(vec_not_equal2_end)));
+			Assert::IsFalse(equal(par, std::begin(vec_not_equal_last), std::end(vec_not_equal_last), std::begin(vec_not_equal2_last), std::end(vec_not_equal2_last)));
 
 			// First element different
-			Assert::IsFalse(equal(par, std::begin(vec_not_equal_begin), std::end(vec_not_equal_begin), std::begin(vec_not_equal2_begin), std::end(vec_not_equal2_begin)));
+			Assert::IsFalse(equal(par, std::begin(vec_not_equal_first), std::end(vec_not_equal_first), std::begin(vec_not_equal2_first), std::end(vec_not_equal2_first)));
 
-			// Compare empty collection to another none empty
-			Assert::IsTrue(equal(par, std::begin(vec_empty), std::end(vec_empty), std::begin(vec_not_equal2_end), std::end(vec_not_equal2_end)));
+			// Compare collections with differing lengths (both non-empty)
+			Assert::IsFalse(equal(seq, begin(vec_diff_length), std::end(vec_diff_length), std::begin(vec_diff_length2), std::end(vec_diff_length2)));
+			Assert::IsFalse(equal(seq, begin(vec_diff_length2), std::end(vec_diff_length2), std::begin(vec_diff_length), std::end(vec_diff_length)));
+			Assert::IsFalse(equal(par, begin(vec_diff_length), std::end(vec_diff_length), std::begin(vec_diff_length2), std::end(vec_diff_length2)));
+			Assert::IsFalse(equal(par, begin(vec_diff_length2), std::end(vec_diff_length2), std::begin(vec_diff_length), std::end(vec_diff_length)));
+
+			// Compare collections with differing lenghts (one empty)
+			Assert::IsFalse(equal(seq, begin(vec_empty_non), std::end(vec_empty_non), std::begin(vec_empty_non2), std::end(vec_empty_non2)));
+			Assert::IsFalse(equal(seq, begin(vec_empty_non2), std::end(vec_empty_non2), std::begin(vec_empty_non), std::end(vec_empty_non)));
+			Assert::IsFalse(equal(par, begin(vec_empty_non), std::end(vec_empty_non), std::begin(vec_empty_non2), std::end(vec_empty_non2)));
+			Assert::IsFalse(equal(par, begin(vec_empty_non2), std::end(vec_empty_non2), std::begin(vec_empty_non), std::end(vec_empty_non)));
 		}
 
 		template<typename _IterCat>

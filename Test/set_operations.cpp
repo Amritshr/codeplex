@@ -85,11 +85,11 @@ namespace ParallelSTL_Tests
 
 			{
 				SetOperationAlgoTest<_IterCat> _Alg;
-				genericSetOperationTest(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_in2(), _Alg.end_in2(), _Alg.maxSize());
+				genericSetOperationTest(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_in2(), _Alg.end_in2(), _Alg.maxSize());
 			}
 			{
 				SetOperationAlgoTest<_IterCat> _Alg;
-				genericSetOperationTest(seq, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_in2(), _Alg.end_in2(), _Alg.maxSize());
+				genericSetOperationTest(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_in2(), _Alg.end_in2(), _Alg.maxSize());
 			}
 		}
 

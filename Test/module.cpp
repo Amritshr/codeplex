@@ -7,9 +7,9 @@ namespace ParallelSTL_Tests {
 	{
 		srand((unsigned int)time(nullptr));
 #ifdef _DEBUG
-		utils::Algo::Settings(100000);
+		utils::Algo::Settings(10000);
 #else
-		utils::Algo::Settings(20000000);
+		utils::Algo::Settings(2000000);
 #endif
 	}
 }

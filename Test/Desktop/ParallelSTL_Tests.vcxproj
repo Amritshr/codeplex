@@ -173,6 +173,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\adjacent_find.cpp" />
+    <ClCompile Include="..\all_any_none_of.cpp" />
     <ClCompile Include="..\Common\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -189,6 +190,7 @@
     <ClCompile Include="..\foreach.cpp" />
     <ClCompile Include="..\generate.cpp" />
     <ClCompile Include="..\generic.cpp" />
+    <ClCompile Include="..\includes.cpp" />
     <ClCompile Include="..\is_partitioned.cpp" />
     <ClCompile Include="..\is_sorted.cpp" />
     <ClCompile Include="..\lexicographical_compare.cpp" />

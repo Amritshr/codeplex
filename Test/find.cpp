@@ -13,13 +13,13 @@ namespace ParallelSTL_Tests
 		struct FindEndAlgoTest :
 			public AlgoTest<FindEndAlgoTest<_IterCat>, _IterCat, size_t>
 		{
-			bool _ValueExits;
+			bool _ValueExists;
 			size_t _ValuePos;
 			typename container::difference_type _ValueCount;
 		public:
 			std::vector<size_t> _Needle;
 
-			FindEndAlgoTest(bool _Exists) : _ValueExits(_Exists)
+			FindEndAlgoTest(bool _Exists) : _ValueExists(_Exists)
 			{
 				const size_t _Size = _Ct.size() - 2;
 
@@ -32,15 +32,14 @@ namespace ParallelSTL_Tests
 				std::iota(std::begin(_Needle), std::end(_Needle), MARKER_VALUE);
 				std::iota(std::begin(_Ct), std::end(_Ct), rand() + _Needle.size());
 
-				if (_ValueExits) {
-					for (size_t _Idx = 0; _Idx < _Needle.size(); ++_Idx)
-						_Ct[_ValuePos + _Idx] = _Needle[_Idx];
+				if (_ValueExists) {
+					std::copy(std::begin(_Needle), std::end(_Needle), std::begin(_Ct) + _ValuePos);
 				}
 			}
 
 			~FindEndAlgoTest()
 			{
-				if (_ValueExits) {
+				if (_ValueExists) {
 					Assert::IsTrue(_Result != end_in());
 
 					container::size_type _Pos = std::distance(begin_in(), _Result);
@@ -51,8 +50,8 @@ namespace ParallelSTL_Tests
 
 			std::function<bool(size_t, size_t)> callback()
 			{
-				return std::function<bool(size_t, size_t)>([&](size_t _First, size_t){
-					return _First < this->_Needle.size() + 1;
+				return std::function<bool(size_t, size_t)>([&](size_t _First, size_t _Second){
+					return _First == _Second;
 				});
 			}
 		};
@@ -63,19 +62,19 @@ namespace ParallelSTL_Tests
 		{
 			in_iterator _Iter_pos;
 			std::vector<size_t> _Find_items;
-			bool _ValueExits;
+			bool _ValueExists;
 		public:
 			typedef typename test_iterator<
 				typename std::conditional<std::is_same<_IterCat, std::input_iterator_tag>::value, std::forward_iterator_tag, _IterCat>::type,
 				typename std::vector<size_t>::iterator
 			> find_iterator;
 
-			FindAlgoTest(bool _Exists) : _ValueExits(_Exists)
+			FindAlgoTest(bool _Exists) : _ValueExists(_Exists)
 			{
 				auto _Init = rand() + MARKER_VALUE;
 				std::iota(std::begin(_Ct), std::end(_Ct), _Init);
 				
-				if (_ValueExits) {
+				if (_ValueExists) {
 					for (size_t _I = 0; _I < RAND_NUM_COUNT; ++_I)
 						_Ct[_I] = MARKER_VALUE;
 
@@ -91,7 +90,7 @@ namespace ParallelSTL_Tests
 
 			~FindAlgoTest()
 			{
-				if (_ValueExits) {
+				if (_ValueExists) {
 					Assert::IsTrue(_Result == _Iter_pos);
 					Assert::IsTrue(*_Result == *_Iter_pos);
 				}

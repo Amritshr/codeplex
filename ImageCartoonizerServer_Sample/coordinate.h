@@ -6,6 +6,8 @@
 #include <iterator>
 #include <type_traits>
 
+#define _CONSTEXPR
+
 namespace details
 {
     template <typename ConcreteType, typename ValueType, int Rank>
@@ -21,20 +23,14 @@ namespace details
         using value_type      = ValueType;
         static const int rank = Rank;
 
-        coordinate_facade()
+        _CONSTEXPR coordinate_facade() _NOEXCEPT
         {
             static_assert(std::is_base_of<coordinate_facade, ConcreteType>::value, "ConcreteType must be derived from coordinate_facade.");
             for (int i = 0; i < rank; ++i)
-                elems[i] = value_type{};
+                elems[i] = {};
         }
 
-        coordinate_facade(const coordinate_facade& rhs)
-        {
-            for (int i = 0; i < rank; ++i)
-                elems[i] = rhs.elems[i];
-        }
-
-        coordinate_facade(value_type e0)
+        _CONSTEXPR coordinate_facade(value_type e0) _NOEXCEPT
         {
             static_assert(std::is_base_of<coordinate_facade, ConcreteType>::value, "ConcreteType must be derived from coordinate_facade.");
             static_assert(rank == 1, "This constructor can only be used with rank == 1.");
@@ -42,7 +38,7 @@ namespace details
         }
 
         // Preconditions: il.size() == rank
-        coordinate_facade(const std::initializer_list<value_type>& il)
+        _CONSTEXPR coordinate_facade(std::initializer_list<value_type> il) _NOEXCEPT
         {
             static_assert(std::is_base_of<coordinate_facade, ConcreteType>::value, "ConcreteType must be derived from coordinate_facade.");
             assert(il.size() == rank);
@@ -53,26 +49,21 @@ namespace details
         }
 
     protected:
-        coordinate_facade& operator=(const coordinate_facade& rhs)
-        {
-            for (int i = 0; i < rank; ++i)
-                elems[i] = rhs.elems[i];
-            return *this;
-        }
+        coordinate_facade& operator=(const coordinate_facade& rhs) = default;
 
         // Preconditions: component_idx < rank
-        reference operator[](size_type component_idx)
+        _CONSTEXPR reference operator[](size_type component_idx) _NOEXCEPT
         {
             return elems[component_idx];
         }
 
         // Preconditions: component_idx < rank
-        const_reference operator[](size_type component_idx) const
+        _CONSTEXPR const_reference operator[](size_type component_idx) const _NOEXCEPT
         {
             return elems[component_idx];
         }
 
-        bool operator==(const ConcreteType& rhs) const
+        _CONSTEXPR bool operator==(const ConcreteType& rhs) const _NOEXCEPT
         {
             for (int i = 0; i < rank; ++i)
             {
@@ -82,17 +73,17 @@ namespace details
             return true;
         }
 
-        bool operator!=(const ConcreteType& rhs) const
+        _CONSTEXPR bool operator!=(const ConcreteType& rhs) const _NOEXCEPT
         {
             return !(to_concrete() == rhs);
         }
 
-        ConcreteType operator+() const
+        _CONSTEXPR ConcreteType operator+() const _NOEXCEPT
         {
             return to_concrete();
         }
 
-        ConcreteType operator-() const
+        _CONSTEXPR ConcreteType operator-() const _NOEXCEPT
         {
             ConcreteType ret = to_concrete();
             for (int i = 0; i < rank; ++i)
@@ -100,42 +91,42 @@ namespace details
             return ret;
         }
 
-        ConcreteType operator+(const ConcreteType& rhs) const
+        _CONSTEXPR ConcreteType operator+(const ConcreteType& rhs) const _NOEXCEPT
         {
             ConcreteType ret = to_concrete();
             ret += rhs;
             return ret;
         }
 
-        ConcreteType operator-(const ConcreteType& rhs) const
+        _CONSTEXPR ConcreteType operator-(const ConcreteType& rhs) const _NOEXCEPT
         {
             ConcreteType ret = to_concrete();
             ret -= rhs;
             return ret;
         }
 
-        ConcreteType& operator+=(const ConcreteType& rhs)
+        _CONSTEXPR ConcreteType& operator+=(const ConcreteType& rhs) _NOEXCEPT
         {
             for (int i = 0; i < rank; ++i)
                 elems[i] += rhs.elems[i];
             return to_concrete();
         }
 
-        ConcreteType& operator-=(const ConcreteType& rhs)
+        _CONSTEXPR ConcreteType& operator-=(const ConcreteType& rhs) _NOEXCEPT
         {
             for (int i = 0; i < rank; ++i)
                 elems[i] -= rhs.elems[i];
             return to_concrete();
         }
 
-        ConcreteType& operator++()
+        _CONSTEXPR ConcreteType& operator++() _NOEXCEPT
         {
             static_assert(rank == 1, "This operator can only be used with rank == 1.");
             ++elems[0];
             return to_concrete();
         }
 
-        ConcreteType operator++(int)
+        _CONSTEXPR ConcreteType operator++(int) _NOEXCEPT
         {
             static_assert(rank == 1, "This operator can only be used with rank == 1.");
             ConcreteType ret = to_concrete();
@@ -143,14 +134,14 @@ namespace details
             return ret;
         }
 
-        ConcreteType& operator--()
+        _CONSTEXPR ConcreteType& operator--() _NOEXCEPT
         {
             static_assert(rank == 1, "This operator can only be used with rank == 1.");
             --elems[0];
             return to_concrete();
         }
 
-        ConcreteType operator--(int)
+        _CONSTEXPR ConcreteType operator--(int) _NOEXCEPT
         {
             static_assert(rank == 1, "This operator can only be used with rank == 1.");
             ConcreteType ret = to_concrete();
@@ -158,38 +149,43 @@ namespace details
             return ret;
         }
 
-        template <typename ArithmeticType>
-        std::enable_if_t<std::is_arithmetic<ArithmeticType>::value, ConcreteType> mul(ArithmeticType v) const
+        template <typename ArithmeticType,
+            typename = std::enable_if_t<std::is_arithmetic<ArithmeticType>::value>>
+        _CONSTEXPR ConcreteType mul(ArithmeticType v) const _NOEXCEPT
         {
             ConcreteType ret = to_concrete();
             ret *= v;
             return ret;
         }
 
-        template <typename ArithmeticType>
-        std::enable_if_t<std::is_arithmetic<ArithmeticType>::value, ConcreteType> div(ArithmeticType v) const
+        template <typename ArithmeticType,
+            typename = std::enable_if_t<std::is_arithmetic<ArithmeticType>::value>>
+        _CONSTEXPR ConcreteType div(ArithmeticType v) const _NOEXCEPT
         {
             ConcreteType ret = to_concrete();
             ret /= v;
             return ret;
         }
 
-        template <typename ArithmeticType>
-        friend std::enable_if_t<std::is_arithmetic<ArithmeticType>::value, ConcreteType> operator*(ArithmeticType v, const ConcreteType& rhs)
+        template <typename ArithmeticType,
+            typename = std::enable_if_t<std::is_arithmetic<ArithmeticType>::value>>
+        friend _CONSTEXPR ConcreteType operator*(ArithmeticType v, const ConcreteType& rhs) _NOEXCEPT
         {
             return rhs * v;
         }
 
-        template <typename ArithmeticType>
-        std::enable_if_t<std::is_arithmetic<ArithmeticType>::value, ConcreteType&> mul_eq(ArithmeticType v)
+        template <typename ArithmeticType,
+            typename = std::enable_if_t<std::is_arithmetic<ArithmeticType>::value>>
+        _CONSTEXPR ConcreteType& mul_eq(ArithmeticType v) _NOEXCEPT
         {
             for (int i = 0; i < rank; ++i)
                 elems[i] *= v;
             return to_concrete();
         }
 
-        template <typename ArithmeticType>
-        std::enable_if_t<std::is_arithmetic<ArithmeticType>::value, ConcreteType&> div_eq(ArithmeticType v)
+        template <typename ArithmeticType,
+            typename = std::enable_if_t<std::is_arithmetic<ArithmeticType>::value>>
+        _CONSTEXPR ConcreteType& div_eq(ArithmeticType v) _NOEXCEPT
         {
             for (int i = 0; i < rank; ++i)
                 elems[i] /= v;
@@ -199,12 +195,12 @@ namespace details
         value_type elems[rank];
 
     private:
-        const ConcreteType& to_concrete() const
+        _CONSTEXPR const ConcreteType& to_concrete() const _NOEXCEPT
         {
             return static_cast<const ConcreteType&>(*this);
         }
 
-        ConcreteType& to_concrete()
+        _CONSTEXPR ConcreteType& to_concrete() _NOEXCEPT
         {
             return static_cast<ConcreteType&>(*this);
         }
@@ -218,12 +214,12 @@ namespace details
             : val(t)
         {}
 
-        const T operator*() const
+        const T operator*() const _NOEXCEPT
         {
             return val;
         }
 
-        const T* operator->() const
+        const T* operator->() const _NOEXCEPT
         {
             return &val;
         }
@@ -234,13 +230,13 @@ namespace details
 }
 
 #define USING_COORDINATE_FACADE_OPERATOR_MUL(BaseT, ThisT) \
-    template <typename ArithmeticType> std::enable_if_t<std::is_arithmetic<ArithmeticType>::value, ThisT> operator*(ArithmeticType v) const { return BaseT::mul(v); }
+template <typename ArithmeticType, typename = std::enable_if_t<std::is_arithmetic<ArithmeticType>::value>> _CONSTEXPR ThisT operator*(ArithmeticType v) const _NOEXCEPT { return BaseT::mul(v); }
 #define USING_COORDINATE_FACADE_OPERATOR_DIV(BaseT, ThisT) \
-    template <typename ArithmeticType> std::enable_if_t<std::is_arithmetic<ArithmeticType>::value, ThisT> operator/(ArithmeticType v) const { return BaseT::div(v); }
+template <typename ArithmeticType, typename = std::enable_if_t<std::is_arithmetic<ArithmeticType>::value>> _CONSTEXPR ThisT operator/(ArithmeticType v) const _NOEXCEPT { return BaseT::div(v); }
 #define USING_COORDINATE_FACADE_OPERATOR_MUL_EQ(BaseT, ThisT) \
-    template <typename ArithmeticType> std::enable_if_t<std::is_arithmetic<ArithmeticType>::value, ThisT&> operator*=(ArithmeticType v) { return BaseT::mul_eq(v); }
+template <typename ArithmeticType, typename = std::enable_if_t<std::is_arithmetic<ArithmeticType>::value>> _CONSTEXPR ThisT& operator*=(ArithmeticType v) _NOEXCEPT { return BaseT::mul_eq(v); }
 #define USING_COORDINATE_FACADE_OPERATOR_DIV_EQ(BaseT, ThisT) \
-    template <typename ArithmeticType> std::enable_if_t<std::is_arithmetic<ArithmeticType>::value, ThisT&> operator/=(ArithmeticType v) { return BaseT::div_eq(v); }
+template <typename ArithmeticType, typename = std::enable_if_t<std::is_arithmetic<ArithmeticType>::value>> _CONSTEXPR ThisT& operator/=(ArithmeticType v) _NOEXCEPT { return BaseT::div_eq(v); }
 
 template <int Rank>
 class index : private ::details::coordinate_facade<index<Rank>, ptrdiff_t, Rank>
@@ -256,9 +252,9 @@ public:
     using Base::rank;
 
     index() : Base(){}
-    index(const coordinate_facade& rhs) : Base(rhs){}
+    index(const index& rhs) : Base(rhs){}
     index(value_type e0) : Base(e0){}
-    index(const std::initializer_list<value_type>& il) : Base(il){}
+    index(std::initializer_list<value_type> il) : Base(il){}
 
     using Base::operator[];
     using Base::operator==;
@@ -273,12 +269,6 @@ public:
     USING_COORDINATE_FACADE_OPERATOR_DIV(Base, index);
     USING_COORDINATE_FACADE_OPERATOR_MUL_EQ(Base, index);
     USING_COORDINATE_FACADE_OPERATOR_DIV_EQ(Base, index);
-
-    index& operator=(const index& rhs)
-    {
-        Base::operator=(rhs);
-        return *this;
-    }
 };
 
 template <int Rank> struct bounds_iterator;
@@ -300,9 +290,9 @@ public:
     using Base::rank;
 
     bounds() :Base(){}
-    bounds(const coordinate_facade& rhs) : Base(rhs){}
+    bounds(const bounds& rhs) : Base(rhs){}
     bounds(value_type e0) : Base(e0){}
-    bounds(const std::initializer_list<value_type>& il) : Base(il){}
+    bounds(std::initializer_list<value_type> il) : Base(il){}
 
     using Base::operator[];
     using Base::operator==;
@@ -311,47 +301,41 @@ public:
     USING_COORDINATE_FACADE_OPERATOR_DIV(Base, bounds);
     USING_COORDINATE_FACADE_OPERATOR_MUL_EQ(Base, bounds);
     USING_COORDINATE_FACADE_OPERATOR_DIV_EQ(Base, bounds);
-    
-    bounds& operator=(const bounds& rhs)
-    {
-        Base::operator=(rhs);
-        return *this;
-    }
 
-    bounds operator+(const index<rank>& rhs) const
+    _CONSTEXPR bounds operator+(const index<rank>& rhs) const _NOEXCEPT
     {
         auto ret = *this;
         ret += rhs;
         return ret;
     }
 
-    bounds operator-(const index<rank>& rhs) const
+    _CONSTEXPR bounds operator-(const index<rank>& rhs) const _NOEXCEPT
     {
         auto ret = *this;
         ret -= rhs;
         return ret;
     }
 
-    friend bounds operator+(const index<rank>& lhs, const bounds& rhs)
+    friend _CONSTEXPR bounds operator+(const index<rank>& lhs, const bounds& rhs) _NOEXCEPT
     {
         return rhs + lhs;
     }
 
-    bounds& operator+=(const index<rank>& rhs)
+    _CONSTEXPR bounds& operator+=(const index<rank>& rhs) _NOEXCEPT
     {
         for (int i = 0; i < rank; ++i)
             Base::elems[i] += rhs[i];
         return *this;
     }
 
-    bounds& operator-=(const index<rank>& rhs)
+    _CONSTEXPR bounds& operator-=(const index<rank>& rhs) _NOEXCEPT
     {
         for (int i = 0; i < rank; ++i)
             Base::elems[i] -= rhs[i];
         return *this;
     }
 
-    size_type size() const
+    _CONSTEXPR size_type size() const _NOEXCEPT
     {
         size_type ret = Base::elems[0];
         for (int i = 1; i < rank; ++i)
@@ -359,7 +343,7 @@ public:
         return ret;
     }
 
-    bool contains(const index<rank>& idx) const
+    _CONSTEXPR bool contains(const index<rank>& idx) const _NOEXCEPT
     {
         for (int i = 0; i < rank; ++i)
         {
@@ -369,17 +353,17 @@ public:
         return true;
     }
 
-    bounds_iterator<rank> begin() const
+    bounds_iterator<rank> begin() const _NOEXCEPT
     {
-        return bounds_iterator<Rank>{ *this };
+        return bounds_iterator<rank>{ *this };
     }
 
-    bounds_iterator<rank> end() const
+    bounds_iterator<rank> end() const _NOEXCEPT
     {
         index<rank> idx_end;
         for (int i = 0; i < rank; ++i)
             idx_end[i] = (*this)[i];
-        return bounds_iterator<Rank>{ *this, idx_end };
+        return bounds_iterator<rank>{ *this, idx_end };
     }
 };
 
@@ -392,25 +376,22 @@ struct bounds_iterator
         const index<Rank>>
 {
     // Preconditions: bnd.contains(curr) unless bnd.size() == 0
-    explicit bounds_iterator(bounds<Rank> bnd, index<Rank> curr = index<Rank>{})
+    explicit bounds_iterator(bounds<Rank> bnd, index<Rank> curr = index<Rank>{}) _NOEXCEPT
         : bnd{ std::move(bnd) }
         , curr{ std::move(curr) }
     {}
 
-    bounds_iterator(const bounds_iterator& rhs) = default;
-    bounds_iterator& operator=(const bounds_iterator& rhs) = default;
-
-    reference operator*() const
+    reference operator*() const _NOEXCEPT
     {
         return curr;
     }
 
-    pointer operator->() const
+    pointer operator->() const _NOEXCEPT
     {
-        return ::details::arrow_proxy<index<Rank>>{ curr };
+        return details::arrow_proxy<index<Rank>>{ curr };
     }
 
-    bounds_iterator& operator++()
+    bounds_iterator& operator++() _NOEXCEPT
     {
         for (int i = Rank; i-- > 0;)
         {
@@ -423,6 +404,7 @@ struct bounds_iterator
                 curr[i] = 0;
             }
         }
+
         // If we're here we've wrapped over - set to past-the-end.
         for (int i = 0; i < Rank; ++i)
         {
@@ -431,14 +413,14 @@ struct bounds_iterator
         return *this;
     }
 
-    bounds_iterator operator++(int)
+    bounds_iterator operator++(int) _NOEXCEPT
     {
         auto ret = *this;
         ++(*this);
         return ret;
     }
 
-    bounds_iterator& operator--()
+    bounds_iterator& operator--() _NOEXCEPT
     {
         for (int i = Rank; i-- > 0;)
         {
@@ -451,26 +433,27 @@ struct bounds_iterator
                 curr[i] = bnd[i] - 1;
             }
         }
+
         // If we're here the preconditions were violated
         // "pre: there exists s such that r == ++s"
         assert(false);
         return *this;
     }
 
-    bounds_iterator operator--(int)
+    bounds_iterator operator--(int) _NOEXCEPT
     {
         auto ret = *this;
         --(*this);
         return ret;
     }
 
-    bounds_iterator operator+(difference_type n) const
+    bounds_iterator operator+(difference_type n) const _NOEXCEPT
     {
         bounds_iterator ret{ *this };
         return ret += n;
     }
 
-    bounds_iterator& operator+=(difference_type n)
+    bounds_iterator& operator+=(difference_type n) _NOEXCEPT
     {
         auto linear_idx = linearize(curr) + n;
 
@@ -490,38 +473,38 @@ struct bounds_iterator
         return *this;
     }
 
-    bounds_iterator operator-(difference_type n) const
+    bounds_iterator operator-(difference_type n) const _NOEXCEPT
     {
         bounds_iterator ret{ *this };
         return ret -= n;
     }
 
-    bounds_iterator& operator-=(difference_type n)
+    bounds_iterator& operator-=(difference_type n) _NOEXCEPT
     {
         return *this += -n;
     }
 
-    difference_type operator-(const bounds_iterator& rhs) const
+    difference_type operator-(const bounds_iterator& rhs) const _NOEXCEPT
     {
         return linearize(curr) - linearize(rhs.curr);
     }
 
-    reference operator[](difference_type n) const
+    reference operator[](difference_type n) const _NOEXCEPT
     {
         return *(*this + n);
     }
 
-    bool operator==(const bounds_iterator& rhs) const
+    bool operator==(const bounds_iterator& rhs) const _NOEXCEPT
     {
         return curr == rhs.curr;
     }
 
-    bool operator!=(const bounds_iterator& rhs) const
+    bool operator!=(const bounds_iterator& rhs) const _NOEXCEPT
     {
         return !(*this == rhs);
     }
 
-    bool operator<(const bounds_iterator& rhs) const
+    bool operator<(const bounds_iterator& rhs) const _NOEXCEPT
     {
         for (int i = 0; i < Rank; ++i)
         {
@@ -531,29 +514,29 @@ struct bounds_iterator
         return false;
     }
 
-    bool operator<=(const bounds_iterator& rhs) const
+    bool operator<=(const bounds_iterator& rhs) const _NOEXCEPT
     {
         return !(rhs < *this);
     }
 
-    bool operator>(const bounds_iterator& rhs) const
+    bool operator>(const bounds_iterator& rhs) const _NOEXCEPT
     {
         return rhs < *this;
     }
 
-    bool operator>=(const bounds_iterator& rhs) const
+    bool operator>=(const bounds_iterator& rhs) const _NOEXCEPT
     {
         return !(rhs > *this);
     }
 
-    void swap(bounds_iterator& rhs)
+    void swap(bounds_iterator& rhs) _NOEXCEPT
     {
         std::swap(bnd, rhs.bnd);
         std::swap(curr, rhs.curr);
     }
 
 private:
-    ptrdiff_t linearize(const index<Rank>& idx) const
+    ptrdiff_t linearize(const index<Rank>& idx) const _NOEXCEPT
     {
         // Check if past-the-end
         bool pte = true;
@@ -595,7 +578,7 @@ private:
 };
 
 template <int Rank>
-bounds_iterator<Rank> operator+(typename bounds_iterator<Rank>::difference_type n, const bounds_iterator<Rank>& rhs)
+bounds_iterator<Rank> operator+(typename bounds_iterator<Rank>::difference_type n, const bounds_iterator<Rank>& rhs) _NOEXCEPT
 {
     return rhs + n;
 }

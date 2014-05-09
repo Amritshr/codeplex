@@ -21,7 +21,7 @@ namespace std {
 
 						LoopHelper<_ExecutionPolicy, composable_iterator<_InIt, _InIt2> >::Loop(_Begin, _Count,
 							[&_Token, &_Pred](composable_iterator<_InIt, _InIt2>::reference _It){
-								if (!_Pred(*std::get<0>(_It), *std::get<1>(_It)))
+							if (!_Pred(*std::get<0>(_It), *std::get<1>(_It)))
 									_Token.cancel();
 						}, _Token);
 					});
@@ -75,7 +75,7 @@ namespace std {
 								return false;
 						}
 
-						return true;
+						return (_First == _Last && _First2 == _Last2);
 					_EXP_RETHROW
 				}
 
@@ -97,7 +97,7 @@ namespace std {
 						return _Equal_helper(_Policy, _First, _First2, _Diff, _Pred);
 					}
 
-					return true;
+					return (_First == _Last && _First2 == _Last2);
 				}
 
 				template <class _ExPolicy, class _InIt, class _InIt2, class _Pr>
