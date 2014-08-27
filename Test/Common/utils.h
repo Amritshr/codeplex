@@ -5,6 +5,24 @@
 
 #include <vector>
 #include <atomic>
+#include <type_traits>
+#include <chrono>
+#include <CppUnitTest.h>
+// GLUE macro
+#define GLUE2(A, B) A ## B
+#define GLUE(A, B) GLUE2(A, B)
+
+// TEST_ERROR macro
+// Usage: TEST_ERROR(T{} + T{}, MyType) iff "MyType{} + MyType{}" is expected to be ill-formed.
+// The macro requires compiler support for expression SFINAE.
+//#define TEST_ERROR(expr, type) \
+//    namespace { template <typename T> auto GLUE(__test_error_, __LINE__) () -> decltype(expr, std::false_type{}); template <typename T> auto GLUE(__test_error_, __LINE__) ()->std::true_type; static_assert(decltype(GLUE(__test_error_, __LINE__) <type>())::value, "Expected " #expr " to be ill-formed for " #type "!"); }
+#define TEST_ERROR(expr, type)
+
+// TEST_NOEXCEPT macro
+// The macro requires compiler support for conditional noexcept.
+// #define TEST_NOEXCEPT(expr, expected) Assert::IsTrue(noexcept(expr) == expected);
+#define TEST_NOEXCEPT(expr, expected)
 
 namespace utils
 {
@@ -177,18 +195,18 @@ test_iterator<_IterCat, _It> make_test_iterator(const _It& _Iter)
 
 struct Algo
 {
-    static const size_t MAX_ITERATIONS = 1000;
-    static const size_t RAND_ITERATIONS = 1000;
+	static const size_t MAX_ITERATIONS = 1000;
+	static const size_t RAND_ITERATIONS = 1000;
 
-    static void Settings(size_t _MIter, size_t _RIter = RAND_ITERATIONS)
-    {
-        _Max_iterations = _MIter;
-        _Rand_iterations = _RIter;
-    }
-    
+	static void Settings(size_t _MIter, size_t _RIter = RAND_ITERATIONS)
+	{
+		_Max_iterations = _MIter;
+		_Rand_iterations = _RIter;
+	}
+	
 protected:
-    static size_t _Max_iterations;
-    static size_t _Rand_iterations;
+	static size_t _Max_iterations;
+	static size_t _Rand_iterations;
 };
 
 __declspec(selectany) size_t Algo::_Max_iterations = Algo::MAX_ITERATIONS;
@@ -258,15 +276,15 @@ public:
 		return make_test_iterator<out_iterator::iterator_category>(std::end(_Ct_copy));
 	}
 
-    size_t size_in()
-    {
+	size_t size_in()
+	{
 		return _Ct.size();
-    }
+	}
 
 	container _Ct;
 	container _Ct_copy;
 	typename _ResultType<_RetResult, out_iterator>::type _Result;
-    std::exception_ptr _Exception;
+	std::exception_ptr _Exception;
 };
 
 	struct MovableOnly
@@ -301,6 +319,28 @@ public:
 
 		int _Copy_count;
 	};
+
+	template<typename F>
+	void measure_time(F&& f, const char* name)
+	{
+#ifdef _DEBUG
+		f;
+		name;
+#else
+		using namespace std::chrono;
+		using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+		auto begin = high_resolution_clock::now();
+		f();
+		auto end = high_resolution_clock::now();
+
+		
+		char buffer[128];
+		sprintf_s(buffer, "[Perf]: %s %llu.%03llu seconds\n", name,
+			duration_cast<seconds>(end - begin).count(),
+			duration_cast<milliseconds>(end - begin).count() % 1000);
+		Logger::WriteMessage(buffer);
+#endif
+	}
 
 	struct CustomException {};
 
@@ -381,8 +421,8 @@ namespace std {
 }
 
 #define RunBatch(_Func) \
-    _Func(seq); \
-    _Func(par); \
-    _Func(vec)
+	_Func(seq); \
+	_Func(par); \
+	_Func(par_vec)
 
 #endif // _UTILS_H_

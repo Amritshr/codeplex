@@ -1,11 +1,12 @@
 #pragma once
 
-#include "coordinate.h"
+#include <experimental\coordinate>
 #include <experimental\algorithm>
 
 using namespace concurrency;
 using namespace std;
 using namespace std::experimental;
+using namespace std::experimental::D4087;
 
 class FrameProcessing;
 

@@ -8,7 +8,7 @@ namespace ParallelSTL_Tests
 	struct ScanAlgoTest :
 		public AlgoTest<ScanAlgoTest<_IterCat, _OutIterCat>, _IterCat, size_t, void, _OutIterCat>
 	{
-		ScanAlgoTest(bool _Ex) : _Exclusive(_Ex)
+		ScanAlgoTest(bool _Ex, size_t initValue = MARKER_VALUE) : _Exclusive(_Ex)
 		{
 			size_t _El = 0;
 			std::for_each(std::begin(_Ct), std::end(_Ct), [&_El](size_t& _Val){
@@ -20,11 +20,12 @@ namespace ParallelSTL_Tests
 			});
 
 			_Ct_copy.resize(_Ct.size());
+			_Init = initValue;
 		}
 
 		~ScanAlgoTest()
 		{
-			size_t _Sum = MARKER_VALUE;
+			size_t _Sum = _Init;
 			auto _Res = std::begin(_Ct);
 			for (auto _It = std::begin(_Ct_copy); _It != std::end(_Ct_copy); ++_It) {
 				if (_Exclusive == true && *_It != _Sum) {
@@ -51,6 +52,7 @@ namespace ParallelSTL_Tests
 		}
 	private:
 		bool _Exclusive;
+		size_t _Init;
 	};
 
 	TEST_CLASS(ExclusiveScanTest)
@@ -68,9 +70,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(exclusive_scan(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VALUE));
 			}
 
-			{  //vec
+			{  //par_vec
 				ScanAlgoTest<_IterCat, _IterCat2> _Alg(true);
-				_Alg.set_result(exclusive_scan(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VALUE));
+				_Alg.set_result(exclusive_scan(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VALUE));
 			}
 		}
 
@@ -94,9 +96,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(exclusive_scan(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VALUE, _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				ScanAlgoTest<_IterCat, _IterCat2> _Alg(true);
-				_Alg.set_result(exclusive_scan(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VALUE, _Alg.callback()));
+				_Alg.set_result(exclusive_scan(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VALUE, _Alg.callback()));
 			}
 		}
 
@@ -135,18 +137,18 @@ namespace ParallelSTL_Tests
 		void RunInclusiveScan()
 		{
 			{  // seq
-				ScanAlgoTest<_IterCat, _IterCat2> _Alg(false);
-				_Alg.set_result(inclusive_scan(seq, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VALUE));
+				ScanAlgoTest<_IterCat, _IterCat2> _Alg(false, 0u);
+				_Alg.set_result(inclusive_scan(seq, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback()));
 			}
 
 			{  //par
-				ScanAlgoTest<_IterCat, _IterCat2> _Alg(false);
-				_Alg.set_result(inclusive_scan(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VALUE));
+				ScanAlgoTest<_IterCat, _IterCat2> _Alg(false, 0u);
+				_Alg.set_result(inclusive_scan(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback()));
 			}
 
-			{  //vec
-				ScanAlgoTest<_IterCat, _IterCat2> _Alg(false);
-				_Alg.set_result(inclusive_scan(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VALUE));
+			{  //par_vec
+				ScanAlgoTest<_IterCat, _IterCat2> _Alg(false, 0u);
+				_Alg.set_result(inclusive_scan(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback()));
 			}
 		}
 
@@ -162,17 +164,17 @@ namespace ParallelSTL_Tests
 		{
 			{  // seq
 				ScanAlgoTest<_IterCat, _IterCat2> _Alg(false);
-				_Alg.set_result(inclusive_scan(seq, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VALUE, _Alg.callback()));
+				_Alg.set_result(inclusive_scan(seq, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback(), MARKER_VALUE));
 			}
 
 			{  //par
 				ScanAlgoTest<_IterCat, _IterCat2> _Alg(false);
-				_Alg.set_result(inclusive_scan(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VALUE, _Alg.callback()));
+				_Alg.set_result(inclusive_scan(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback(), MARKER_VALUE));
 			}
 
-			{  //vec
+			{  //par_vec
 				ScanAlgoTest<_IterCat, _IterCat2> _Alg(false);
-				_Alg.set_result(inclusive_scan(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VALUE, _Alg.callback()));
+				_Alg.set_result(inclusive_scan(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback(), MARKER_VALUE));
 			}
 		}
 
@@ -187,11 +189,11 @@ namespace ParallelSTL_Tests
 		{
 			std::vector<size_t> vec_empty, vec_out_empty;
 
-			Assert::IsTrue(inclusive_scan(par, std::begin(vec_empty), std::end(vec_empty), std::begin(vec_out_empty), size_t{ 0 }) == std::begin(vec_out_empty));
+			Assert::IsTrue(inclusive_scan(par, std::begin(vec_empty), std::end(vec_empty), std::begin(vec_out_empty)) == std::begin(vec_out_empty));
 
 			std::vector<size_t> vec_one = { 2 }, vec_out_one = { 1 };
 
-			auto _It = inclusive_scan(par, std::begin(vec_one), std::end(vec_one), std::begin(vec_out_one), MARKER_VALUE);
+			auto _It = inclusive_scan(par, std::begin(vec_one), std::end(vec_one), std::begin(vec_out_one), std::plus<>(), MARKER_VALUE);
 			Assert::AreEqual(size_t{ 3 }, vec_out_one[0]);
 			Assert::AreEqual(size_t{ 2 }, vec_one[0]);
 			Assert::IsTrue(_It == std::end(vec_out_one));
@@ -199,7 +201,7 @@ namespace ParallelSTL_Tests
 			std::vector<size_t> vec = { 2, 3, 4, 5 }, vec_out = { 1, 1, 1, 1 };
 			std::vector<size_t> expected = { 3, 6, 10, 15 };
 
-			_It = inclusive_scan(par, std::begin(vec), std::end(vec), std::begin(vec_out), MARKER_VALUE);
+			_It = inclusive_scan(par, std::begin(vec), std::end(vec), std::begin(vec_out), std::plus<>(), MARKER_VALUE);
 			Assert::IsTrue(vec_out == expected);
 			Assert::IsTrue(_It == std::end(vec_out));
 		}

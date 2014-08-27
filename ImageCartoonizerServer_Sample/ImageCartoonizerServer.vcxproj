@@ -217,7 +217,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="coordinate.h" />
     <ClInclude Include="FrameData.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Cartoonizer.h" />

@@ -65,9 +65,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(lexicographical_compare(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest()));
 			}
 
-			{  //vec
+			{  //par_vec
 				LexicographicalCompareAlgoTest<_IterCat> _Alg(_Type);
-				_Alg.set_result(lexicographical_compare(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest()));
+				_Alg.set_result(lexicographical_compare(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest()));
 			}
 		}
 
@@ -99,9 +99,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(lexicographical_compare(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				LexicographicalCompareAlgoTest<_IterCat> _Alg(_Type);
-				_Alg.set_result(lexicographical_compare(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest(), _Alg.callback()));
+				_Alg.set_result(lexicographical_compare(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest(), _Alg.callback()));
 			}
 		}
 

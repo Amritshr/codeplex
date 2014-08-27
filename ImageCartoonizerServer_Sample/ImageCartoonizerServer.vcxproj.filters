@@ -16,6 +16,5 @@
     <ClInclude Include="Cartoonizer.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="FrameData.h" />
-    <ClInclude Include="coordinate.h" />
   </ItemGroup>
 </Project>

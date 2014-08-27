@@ -49,9 +49,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(reduce(par, _Alg.begin_in(), _Alg.end_in()));
 			}
 
-			{  //vec
+			{  //par_vec
 				ReduceAlgoTest<_IterCat> _Alg;
-				_Alg.set_result(reduce(vec, _Alg.begin_in(), _Alg.end_in()));
+				_Alg.set_result(reduce(par_vec, _Alg.begin_in(), _Alg.end_in()));
 			}
 		}
 
@@ -75,9 +75,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(reduce(par, _Alg.begin_in(), _Alg.end_in(), INITIAL_VALUE));
 			}
 
-			{  //vec
+			{  //par_vec
 				ReduceAlgoTest<_IterCat> _Alg(INITIAL_VALUE);
-				_Alg.set_result(reduce(vec, _Alg.begin_in(), _Alg.end_in(), INITIAL_VALUE));
+				_Alg.set_result(reduce(par_vec, _Alg.begin_in(), _Alg.end_in(), INITIAL_VALUE));
 			}
 		}
 
@@ -101,9 +101,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(reduce(par, _Alg.begin_in(), _Alg.end_in(), INITIAL_VALUE, _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				ReduceAlgoTest<_IterCat> _Alg(INITIAL_VALUE, true);
-				_Alg.set_result(reduce(vec, _Alg.begin_in(), _Alg.end_in(), INITIAL_VALUE, _Alg.callback()));
+				_Alg.set_result(reduce(par_vec, _Alg.begin_in(), _Alg.end_in(), INITIAL_VALUE, _Alg.callback()));
 			}
 		}
 

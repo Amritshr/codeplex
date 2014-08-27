@@ -11,9 +11,22 @@
 #pragma push_macro("_EXP_TRY")
 #pragma push_macro("_EXP_RETHROW")
 #pragma push_macro("_EXP_GENERIC_EXECUTION_POLICY")
+#pragma push_macro("_EXP_PRAGMA_VEC")
+#pragma push_macro("_EXP_PRAGMA_PAR")
 #undef _EXP_TRY
 #undef _EXP_RETHROW
 #undef _EXP_GENERIC_EXECUTION_POLICY
+#undef _EXP_PRAGMA_VEC
+#undef _EXP_PRAGMA_PAR
+
+#if _MSC_VER  >= 1900
+#define _EXP_PRAGMA_VEC __pragma(loop(execution_policy_vec))
+// Pragma not implemented yet thus empty
+#define _EXP_PRAGMA_PAR
+#else
+#define _EXP_PRAGMA_VEC
+#define _EXP_PRAGMA_PAR
+#endif
 
 #define _EXP_TRY try {
 
@@ -29,11 +42,15 @@
 #define _EXP_GENERIC_EXECUTION_POLICY(_Func, _Policy, ...) \
     if (_Policy.type() == typeid(parallel_execution_policy)) \
         return _Func(*_Policy.get<parallel_execution_policy>(), __VA_ARGS__); \
-    else if(_Policy.type() == typeid(vector_execution_policy)) \
-        return _Func(*_Policy.get<vector_execution_policy>(), __VA_ARGS__); \
+    else if(_Policy.type() == typeid(parallel_vector_execution_policy)) \
+        return _Func(*_Policy.get<parallel_vector_execution_policy>(), __VA_ARGS__); \
     else if(_Policy.type() == typeid(sequential_execution_policy)) \
         return _Func(*_Policy.get<sequential_execution_policy>(), __VA_ARGS__); \
     else throw std::invalid_argument("Not supported execution policy.");
+
+#pragma warning(push)
+// warning C4239 : nonstandard extension used : 'argument' : conversion from 'std::tuple<_It>' to 'std::tuple<_It> '
+#pragma warning(disable: 4239)
 
 // Sequential algorithm implementations
 #include "impl\sequential.h"
@@ -68,8 +85,12 @@
 #include "impl\transform.h"
 #include "impl\unique.h"
 
+#pragma warning(pop) // C4239
+
 #pragma pop_macro("_EXP_TRY")
 #pragma pop_macro("_EXP_RETHROW")
 #pragma pop_macro("_EXP_GENERIC_EXECUTION_POLICY")
+#pragma pop_macro("_EXP_PRAGMA_VEC")
+#pragma pop_macro("_EXP_PRAGMA_PAR")
 
 #endif // _PARALLEL_ALGORITHM_H_ 

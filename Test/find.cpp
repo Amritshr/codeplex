@@ -165,9 +165,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(find(par, _Alg.begin_in(), _Alg.end_in(), MARKER_VALUE));
 			}
 
-			{  //vec
+			{  //par_vec
 				FindAlgoTest<_IterCat> _Alg(_Exist);
-				_Alg.set_result(find(vec, _Alg.begin_in(), _Alg.end_in(), MARKER_VALUE));
+				_Alg.set_result(find(par_vec, _Alg.begin_in(), _Alg.end_in(), MARKER_VALUE));
 			}
 		}
 
@@ -195,9 +195,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(find_if(par, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				FindAlgoTest<_IterCat> _Alg(_Exist);
-				_Alg.set_result(find_if(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
+				_Alg.set_result(find_if(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 		}
 
@@ -225,9 +225,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(find_if_not(par, _Alg.begin_in(), _Alg.end_in(), _Alg.not_callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				FindAlgoTest<_IterCat> _Alg(_Exist);
-				_Alg.set_result(find_if_not(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.not_callback()));
+				_Alg.set_result(find_if_not(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.not_callback()));
 			}
 		}
 
@@ -255,9 +255,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(find_first_of(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_find(), _Alg.end_find()));
 			}
 
-			{  //vec
+			{  //par_vec
 				FindAlgoTest<_IterCat> _Alg(_Exist);
-				_Alg.set_result(find_first_of(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_find(), _Alg.end_find()));
+				_Alg.set_result(find_first_of(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_find(), _Alg.end_find()));
 			}
 		}
 
@@ -285,9 +285,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(find_first_of(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_find(), _Alg.end_find(), _Alg.first_of_callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				FindAlgoTest<_IterCat> _Alg(_Exist);
-				_Alg.set_result(find_first_of(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_find(), _Alg.end_find(), _Alg.first_of_callback()));
+				_Alg.set_result(find_first_of(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_find(), _Alg.end_find(), _Alg.first_of_callback()));
 			}
 		}
 
@@ -315,9 +315,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(find_end(par, _Alg.begin_in(), _Alg.end_in(), std::begin(_Alg._Needle), std::end(_Alg._Needle)));
 			}
 
-			{  //vec
+			{  //par_vec
 				FindEndAlgoTest<_IterCat> _Alg(_Exists);
-				_Alg.set_result(find_end(vec, _Alg.begin_in(), _Alg.end_in(), std::begin(_Alg._Needle), std::end(_Alg._Needle)));
+				_Alg.set_result(find_end(par_vec, _Alg.begin_in(), _Alg.end_in(), std::begin(_Alg._Needle), std::end(_Alg._Needle)));
 			}
 		}
 
@@ -334,9 +334,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(find_end(par, _Alg.begin_in(), _Alg.end_in(), std::begin(_Alg._Needle), std::end(_Alg._Needle), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				FindEndAlgoTest<_IterCat> _Alg(_Exists);
-				_Alg.set_result(find_end(vec, _Alg.begin_in(), _Alg.end_in(), std::begin(_Alg._Needle), std::end(_Alg._Needle), _Alg.callback()));
+				_Alg.set_result(find_end(par_vec, _Alg.begin_in(), _Alg.end_in(), std::begin(_Alg._Needle), std::end(_Alg._Needle), _Alg.callback()));
 			}
 		}
 

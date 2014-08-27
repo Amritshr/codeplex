@@ -446,10 +446,6 @@ namespace ParallelSTL_Tests
 			});
 
 			_Tester.test([&](){
-				iter_res = exclusive_scan(_Policy, _First, _Last, _First);
-			});
-
-			_Tester.test([&](){
 				iter_res = inclusive_scan(_Policy, _First, _Last, _First);
 			});
 		}
@@ -559,14 +555,14 @@ namespace ParallelSTL_Tests
 
 		class seq_priv_execution_policy : public sequential_execution_policy {};
 		class par_priv_execution_policy : public parallel_execution_policy {};
-		class vec_priv_execution_policy : public vector_execution_policy {};
+		class vec_priv_execution_policy : public parallel_vector_execution_policy {};
 
 		TEST_METHOD(InstantiatePolicyEnable)
 		{
 			// Positive test cases
 			Assert::IsTrue(is_policy<sequential_execution_policy>(seq));
 			Assert::IsTrue(is_policy<parallel_execution_policy>(par));
-			Assert::IsTrue(is_policy<vector_execution_policy>(vec));
+			Assert::IsTrue(is_policy<parallel_vector_execution_policy>(par_vec));
 
 			Assert::IsTrue(is_policy<seq_priv_execution_policy>(seq_priv_execution_policy()));
 			Assert::IsTrue(is_policy<par_priv_execution_policy>(par_priv_execution_policy()));
@@ -577,7 +573,7 @@ namespace ParallelSTL_Tests
 
 			Assert::IsFalse(is_parallel_policy<sequential_execution_policy>(seq));
 			Assert::IsTrue(is_parallel_policy<parallel_execution_policy>(par));
-			Assert::IsTrue(is_parallel_policy<vector_execution_policy>(vec));
+			Assert::IsTrue(is_parallel_policy<parallel_vector_execution_policy>(par_vec));
 
 			Assert::IsFalse(is_parallel_policy<seq_priv_execution_policy>(seq_priv_execution_policy()));
 			Assert::IsTrue(is_parallel_policy<par_priv_execution_policy>(par_priv_execution_policy()));
@@ -606,7 +602,7 @@ namespace ParallelSTL_Tests
 			if (std::thread::hardware_concurrency() > 1) {
 				// Note - there is possibility that this test will result in false positive if all the pieces of work will work on one thread
 				CheckPolicy(par, true);
-				CheckPolicy(vec, true);
+				CheckPolicy(par_vec, true);
 			}
 
 			bool _Exception = false;

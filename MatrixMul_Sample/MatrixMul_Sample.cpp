@@ -1,7 +1,9 @@
 #include "stdafx.h"
-#include "coordinate.h"
 #include <experimental/algorithm>
+#include <experimental/coordinate>
 #include <random>
+
+using namespace std::experimental::D4087;
 
 template<typename F>
 void measure_time(F&& f, const char* name)

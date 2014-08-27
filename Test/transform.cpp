@@ -77,9 +77,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(transform(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.binary()));
 			}
 
-			{  //vec
+			{  //par_vec
 				TransformAlgoTest<_IterCat, _IterCat2> _Alg;
-				_Alg.set_result(transform(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.binary()));
+				_Alg.set_result(transform(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.binary()));
 			}
 		}
 
@@ -103,9 +103,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(transform(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_in2(), _Alg.begin_dest(), _Alg.binary_op()));
 			}
 
-			{  //vec
+			{  //par_vec
 				TransformAlgoTest<_IterCat, _IterCat2> _Alg(true);
-				_Alg.set_result(transform(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_in2(), _Alg.begin_dest(), _Alg.binary_op()));
+				_Alg.set_result(transform(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_in2(), _Alg.begin_dest(), _Alg.binary_op()));
 			}
 		}
 

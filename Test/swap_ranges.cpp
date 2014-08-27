@@ -106,9 +106,9 @@ namespace ParallelSTL_Tests
 				swap_ranges(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest());
 			}
 
-			{  //vec
+			{  //par_vec
 				SwapRangesAlgoTest<_IterCat> _Alg;
-				swap_ranges(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest());
+				swap_ranges(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest());
 			}
 		}
 

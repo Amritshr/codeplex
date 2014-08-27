@@ -10,7 +10,9 @@ namespace ParallelSTL_Tests
 		struct GenerateAlgoTest :
 			public AlgoTest<GenerateAlgoTest<_IterCat>, _IterCat, size_t>
 		{
-			GenerateAlgoTest()
+			bool _ReturnValue;
+
+			GenerateAlgoTest(bool _Ret = true) : _ReturnValue(_Ret)
 			{
 				std::fill(std::begin(_Ct), std::end(_Ct), 0);
 			}
@@ -20,6 +22,9 @@ namespace ParallelSTL_Tests
 				Assert::IsTrue(std::find_if_not(std::begin(_Ct), std::end(_Ct), [&](size_t _Val){
 					return _Val == FILL_VALUE;
 				}) == std::end(_Ct));
+
+				if (_ReturnValue)
+					Assert::IsTrue(end_in() == _Result);
 			}
 
 			std::function<size_t(void)> callback()
@@ -34,18 +39,18 @@ namespace ParallelSTL_Tests
 		void RunGenerate()
 		{
 			{  // seq
-				GenerateAlgoTest<_IterCat> _Alg;
+				GenerateAlgoTest<_IterCat> _Alg(false);
 				generate(seq, _Alg.begin_in(), _Alg.end_in(), _Alg.callback());
 			}
 
 			{  //par
-				GenerateAlgoTest<_IterCat> _Alg;
+				GenerateAlgoTest<_IterCat> _Alg(false);
 				generate(par, _Alg.begin_in(), _Alg.end_in(), _Alg.callback());
 			}
 
-			{  //vec
-				GenerateAlgoTest<_IterCat> _Alg;
-				generate(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback());
+			{  //par_vec
+				GenerateAlgoTest<_IterCat> _Alg(false);
+				generate(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback());
 			}
 		}
 
@@ -60,17 +65,17 @@ namespace ParallelSTL_Tests
 		{
 			{  // seq
 				GenerateAlgoTest<_IterCat> _Alg;
-				generate_n(seq, _Alg.begin_in(), _Alg.size_in(), _Alg.callback());
+				_Alg.set_result(generate_n(seq, _Alg.begin_in(), _Alg.size_in(), _Alg.callback()));
 			}
 
 			{  //par
 				GenerateAlgoTest<_IterCat> _Alg;
-				generate_n(par, _Alg.begin_in(), _Alg.size_in(), _Alg.callback());
+				_Alg.set_result(generate_n(par, _Alg.begin_in(), _Alg.size_in(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				GenerateAlgoTest<_IterCat> _Alg;
-				generate_n(vec, _Alg.begin_in(), _Alg.size_in(), _Alg.callback());
+				_Alg.set_result(generate_n(par_vec, _Alg.begin_in(), _Alg.size_in(), _Alg.callback()));
 			}
 		}
 

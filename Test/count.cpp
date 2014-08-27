@@ -58,9 +58,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(count(par, _Alg.begin_in(), _Alg.end_in(), COMPARE_VAL));
 			}
 
-			{  //vec
+			{  //par_vec
 				CountAlgoTest<_IterCat> _Alg;
-				_Alg.set_result(count(vec, _Alg.begin_in(), _Alg.end_in(), COMPARE_VAL));
+				_Alg.set_result(count(par_vec, _Alg.begin_in(), _Alg.end_in(), COMPARE_VAL));
 			}
 		}
 
@@ -84,9 +84,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(count_if(par, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				CountAlgoTest<_IterCat> _Alg;
-				_Alg.set_result(count_if(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
+				_Alg.set_result(count_if(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 		}
 

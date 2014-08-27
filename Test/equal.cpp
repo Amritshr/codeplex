@@ -97,9 +97,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(equal(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
 			}
 
-			{  //vec
+			{  //par_vec
 				EqualAlgoTest<_IterCat> _Alg(_Equal);
-				_Alg.set_result(equal(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
+				_Alg.set_result(equal(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
 			}
 		}
 
@@ -127,9 +127,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(equal(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.equal()));
 			}
 
-			{  //vec
+			{  //par_vec
 				EqualAlgoTest<_IterCat> _Alg(_Equal);
-				_Alg.set_result(equal(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.equal()));
+				_Alg.set_result(equal(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.equal()));
 			}
 		}
 
@@ -157,9 +157,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(equal(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest()));
 			}
 
-			{  //vec
+			{  //par_vec
 				EqualAlgoTest<_IterCat> _Alg(_Equal);
-				_Alg.set_result(equal(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest()));
+				_Alg.set_result(equal(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest()));
 			}
 		}
 
@@ -187,9 +187,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(equal(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest(), _Alg.equal()));
 			}
 
-			{  //vec
+			{  //par_vec
 				EqualAlgoTest<_IterCat> _Alg(_Equal);
-				_Alg.set_result(equal(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest(), _Alg.equal()));
+				_Alg.set_result(equal(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest(), _Alg.equal()));
 			}
 		}
 

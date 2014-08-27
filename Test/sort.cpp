@@ -54,21 +54,21 @@ namespace ParallelSTL_Tests
 		{
 			SortImpl(seq);
 			SortImpl(par);
-			SortImpl(vec);
+			SortImpl(par_vec);
 		}
 
 		TEST_METHOD(StableSort)
 		{
 			StableSortImpl(seq);
 			StableSortImpl(par);
-			StableSortImpl(vec);
+			StableSortImpl(par_vec);
 		}
 
 		TEST_METHOD(PartialSort)
 		{
 			PartialSortImpl(seq);
 			PartialSortImpl(par);
-			PartialSortImpl(vec);
+			PartialSortImpl(par_vec);
 		}
 	};
 
