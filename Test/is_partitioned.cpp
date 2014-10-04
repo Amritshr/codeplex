@@ -53,9 +53,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(is_partitioned(par, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				IsPartitionedAlgoTest<_IterCat> _Alg(_IsPartitioned);
-				_Alg.set_result(is_partitioned(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
+				_Alg.set_result(is_partitioned(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 		}
 
@@ -99,19 +99,19 @@ namespace ParallelSTL_Tests
 				return;
 
 			// Partition point on the chunk border
-			std::vector<int> vec(COLLECTION_SIZE, MARKER_VALUE);			
+			std::vector<int> vec(COLLECTION_SIZE, MARKER_VALUE);
 			std::fill_n(std::begin(vec), _Pos, 0);
 			Assert::IsFalse(is_partitioned(dbg, std::begin(vec), std::end(vec), [](int _Val){ return _Val >= MARKER_VALUE; }));
 			
 			// Partition point before border
 			std::vector<int> vec2(COLLECTION_SIZE, MARKER_VALUE);
-			std::fill_n(std::begin(vec), _Pos - 1, 0);
-			Assert::IsFalse(is_sorted(dbg, std::begin(vec2), std::end(vec2)));
+			std::fill_n(std::begin(vec2), _Pos - 1, 0);
+			Assert::IsFalse(is_partitioned(dbg, std::begin(vec2), std::end(vec2), [](int _Val){ return _Val >= MARKER_VALUE; }));
 
 			// Partition point after border
 			std::vector<int> vec3(COLLECTION_SIZE, MARKER_VALUE);
-			std::fill_n(std::begin(vec), _Pos + 1, 0);
-			Assert::IsFalse(is_sorted(dbg, std::begin(vec3), std::end(vec3)));
+			std::fill_n(std::begin(vec3), _Pos + 1, 0);
+			Assert::IsFalse(is_partitioned(dbg, std::begin(vec3), std::end(vec3), [](int _Val){ return _Val >= MARKER_VALUE; }));
 		}
 	};
 } // ParallelSTL_Tests

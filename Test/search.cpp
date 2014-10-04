@@ -248,9 +248,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(search(par, _Alg.begin_in(), _Alg.end_in(), std::begin(_Alg._Needle), std::end(_Alg._Needle)));
 			}
 
-			{  //vec
+			{  //par_vec
 				SearchAlgoTest<_IterCat> _Alg(_Exists);
-				_Alg.set_result(search(vec, _Alg.begin_in(), _Alg.end_in(), std::begin(_Alg._Needle), std::end(_Alg._Needle)));
+				_Alg.set_result(search(par_vec, _Alg.begin_in(), _Alg.end_in(), std::begin(_Alg._Needle), std::end(_Alg._Needle)));
 			}
 		}
 
@@ -267,9 +267,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(search(par, _Alg.begin_in(), _Alg.end_in(), std::begin(_Alg._Needle), std::end(_Alg._Needle), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				SearchAlgoTest<_IterCat> _Alg(_Exists);
-				_Alg.set_result(search(vec, _Alg.begin_in(), _Alg.end_in(), std::begin(_Alg._Needle), std::end(_Alg._Needle), _Alg.callback()));
+				_Alg.set_result(search(par_vec, _Alg.begin_in(), _Alg.end_in(), std::begin(_Alg._Needle), std::end(_Alg._Needle), _Alg.callback()));
 			}
 		}
 
@@ -302,9 +302,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(search_n(par, _Alg.begin_in(), _Alg.end_in(), _Alg._ValueCount, MARKER_VALUE));
 			}
 
-			{  //vec
+			{  //par_vec
 				SearchNAlgoTest<_IterCat> _Alg(_Exists);
-				_Alg.set_result(search_n(vec, _Alg.begin_in(), _Alg.end_in(), _Alg._ValueCount, MARKER_VALUE));
+				_Alg.set_result(search_n(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg._ValueCount, MARKER_VALUE));
 			}
 		}
 
@@ -321,9 +321,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(search_n(par, _Alg.begin_in(), _Alg.end_in(), _Alg._ValueCount, MARKER_VALUE, _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				SearchNAlgoTest<_IterCat> _Alg(_Exists);
-				_Alg.set_result(search_n(vec, _Alg.begin_in(), _Alg.end_in(), _Alg._ValueCount, MARKER_VALUE, _Alg.callback()));
+				_Alg.set_result(search_n(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg._ValueCount, MARKER_VALUE, _Alg.callback()));
 			}
 		}
 

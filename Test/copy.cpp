@@ -79,9 +79,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(copy(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
 			}
 
-			{  //vec
+			{  //par_vec
 				CopyAlgoTest<_IterCat, _IterCat2> _Alg;
-				_Alg.set_result(copy(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
+				_Alg.set_result(copy(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
 			}
 		}
 
@@ -106,9 +106,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(copy_n(par, _Alg.begin_in(), _Alg.size_in(), _Alg.begin_dest()));
 			}
 
-			{  //vec
+			{  //par_vec
 				CopyAlgoTest<_IterCat, _IterCat2> _Alg;
-				_Alg.set_result(copy_n(vec, _Alg.begin_in(), _Alg.size_in(), _Alg.begin_dest()));
+				_Alg.set_result(copy_n(par_vec, _Alg.begin_in(), _Alg.size_in(), _Alg.begin_dest()));
 			}
 		}
 
@@ -132,9 +132,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(uninitialized_copy_n(par, _Alg.begin_in(), _Alg.size_in(), _Alg.begin_dest()));
 			}
 
-			{  //vec
+			{  //par_vec
 				CopyAlgoTest<_IterCat> _Alg;
-				_Alg.set_result(uninitialized_copy_n(vec, _Alg.begin_in(), _Alg.size_in(), _Alg.begin_dest()));
+				_Alg.set_result(uninitialized_copy_n(par_vec, _Alg.begin_in(), _Alg.size_in(), _Alg.begin_dest()));
 			}
 		}
 
@@ -157,9 +157,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(uninitialized_copy(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
 			}
 
-			{  //vec
+			{  //par_vec
 				CopyAlgoTest<_IterCat, _IterCat2> _Alg;
-				_Alg.set_result(uninitialized_copy(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
+				_Alg.set_result(uninitialized_copy(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
 			}
 		}
 
@@ -227,9 +227,9 @@ namespace ParallelSTL_Tests
 				move(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest());
 			}
 
-			{  //vec
+			{  //par_vec
 				CopyAlgoTest<_IterCat, _IterCat2> _Alg;
-				move(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest());
+				move(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest());
 			}
 		}
 
@@ -290,9 +290,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(copy_if(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				CopyIfAlgoTest<_IterCat, _IterCat2> _Alg;
-				_Alg.set_result(copy_if(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback()));
+				_Alg.set_result(copy_if(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback()));
 			}
 		}
 

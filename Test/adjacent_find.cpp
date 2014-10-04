@@ -66,9 +66,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(adjacent_find(par, _Alg.begin_in(), _Alg.end_in()));
 			}
 
-			{  //vec
+			{  //par_vec
 				AdjacentFindAlgoTest<_IterCat> _Alg;
-				_Alg.set_result(adjacent_find(vec, _Alg.begin_in(), _Alg.end_in()));
+				_Alg.set_result(adjacent_find(par_vec, _Alg.begin_in(), _Alg.end_in()));
 			}
 		}
 
@@ -91,9 +91,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(adjacent_find(par, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				AdjacentFindAlgoTest<random_access_iterator_tag> _Alg;
-				_Alg.set_result(adjacent_find(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
+				_Alg.set_result(adjacent_find(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 		}
 

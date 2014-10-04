@@ -64,9 +64,9 @@ namespace ParallelSTL_Tests
 				nth_element(par, _Alg.begin_in(), _Alg.nth_in(), _Alg.end_in());
 			}
 
-			{  //vec
+			{  //par_vec
 				NthElementAlgoTest _Alg;
-				nth_element(vec, _Alg.begin_in(), _Alg.nth_in(), _Alg.end_in());
+				nth_element(par_vec, _Alg.begin_in(), _Alg.nth_in(), _Alg.end_in());
 			}
 		}
 
@@ -82,9 +82,9 @@ namespace ParallelSTL_Tests
 				nth_element(par, _Alg.begin_in(), _Alg.nth_in(), _Alg.end_in(), _Alg.callback());
 			}
 
-			{  //vec
+			{  //par_vec
 				NthElementAlgoTest _Alg(true);
-				nth_element(vec, _Alg.begin_in(), _Alg.nth_in(), _Alg.end_in(), _Alg.callback());
+				nth_element(par_vec, _Alg.begin_in(), _Alg.nth_in(), _Alg.end_in(), _Alg.callback());
 			}
 		}
 

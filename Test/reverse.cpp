@@ -39,9 +39,9 @@ namespace ParallelSTL_Tests
 				reverse(par, _Alg.begin_in(), _Alg.end_in());
 			}
 
-			{  //vec
+			{  //par_vec
 				ReverseAlgoTest<_IterCat> _Alg;
-				reverse(vec, _Alg.begin_in(), _Alg.end_in());
+				reverse(par_vec, _Alg.begin_in(), _Alg.end_in());
 			}
 		}
 
@@ -104,9 +104,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(reverse_copy(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
 			}
 
-			{  //vec
+			{  //par_vec
 				ReverseCopyAlgoTest<_IterCat> _Alg;
-				_Alg.set_result(reverse_copy(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
+				_Alg.set_result(reverse_copy(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
 			}
 		}
 

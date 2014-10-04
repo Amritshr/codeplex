@@ -96,9 +96,9 @@ namespace ParallelSTL_Tests
 				rotate_copy(par, _Alg.begin_in(), _Alg.mid_in(), _Alg.end_in(), _Alg.begin_dest());
 			}
 
-			{  //vec
+			{  //par_vec
 				RotateCopyAlgoTest<_IterCat> _Alg(_RotateEnd, true);
-				rotate_copy(vec, _Alg.begin_in(), _Alg.mid_in(), _Alg.end_in(), _Alg.begin_dest());
+				rotate_copy(par_vec, _Alg.begin_in(), _Alg.mid_in(), _Alg.end_in(), _Alg.begin_dest());
 			}
 		}
 
@@ -147,9 +147,9 @@ namespace ParallelSTL_Tests
 				rotate(par, _Alg.begin_in(), _Alg.mid_in(), _Alg.end_in());
 			}
 
-			{  //vec
+			{  //par_vec
 				RotateCopyAlgoTest<_IterCat> _Alg(_RotateEnd, false);
-				rotate(vec, _Alg.begin_in(), _Alg.mid_in(), _Alg.end_in());
+				rotate(par_vec, _Alg.begin_in(), _Alg.mid_in(), _Alg.end_in());
 			}
 		}
 

@@ -89,7 +89,7 @@ namespace ParallelSTL_Tests
 			}
 			{
 				SetOperationAlgoTest<_IterCat> _Alg;
-				genericSetOperationTest(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_in2(), _Alg.end_in2(), _Alg.maxSize());
+				genericSetOperationTest(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_in2(), _Alg.end_in2(), _Alg.maxSize());
 			}
 		}
 
@@ -112,7 +112,7 @@ namespace ParallelSTL_Tests
 				sort(a.begin(), a.end());
 				sort(b.begin(), b.end());
 				genericSetOperationTest(par, a.begin(), a.end(), b.begin(), b.end(), a.size() + b.size());
-				genericSetOperationTest(vec, a.begin(), a.end(), b.begin(), b.end(), a.size() + b.size());
+				genericSetOperationTest(par_vec, a.begin(), a.end(), b.begin(), b.end(), a.size() + b.size());
 				genericSetOperationTest(seq, a.begin(), a.end(), b.begin(), b.end(), a.size() + b.size());
 			}
 		}

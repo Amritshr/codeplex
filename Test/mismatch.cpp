@@ -71,9 +71,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_pair_result(mismatch(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
 			}
 
-			{  //vec
+			{  //par_vec
 				MismatchAlgoTest<_IterCat> _Alg(_Mismatch);
-				_Alg.set_pair_result(mismatch(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
+				_Alg.set_pair_result(mismatch(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest()));
 			}
 		}
 
@@ -90,9 +90,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_pair_result(mismatch(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest()));
 			}
 
-			{  //vec
+			{  //par_vec
 				MismatchAlgoTest<_IterCat> _Alg(_Mismatch);
-				_Alg.set_pair_result(mismatch(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest()));
+				_Alg.set_pair_result(mismatch(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest()));
 			}
 		}
 
@@ -128,9 +128,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_pair_result(mismatch(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				MismatchAlgoTest<_IterCat> _Alg(_Mismatch);
-				_Alg.set_pair_result(mismatch(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback()));
+				_Alg.set_pair_result(mismatch(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback()));
 			}
 		}
 
@@ -147,9 +147,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_pair_result(mismatch(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				MismatchAlgoTest<_IterCat> _Alg(_Mismatch);
-				_Alg.set_pair_result(mismatch(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest(), _Alg.callback()));
+				_Alg.set_pair_result(mismatch(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.end_dest(), _Alg.callback()));
 			}
 		}
 

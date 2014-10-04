@@ -41,9 +41,9 @@ namespace ParallelSTL_Tests
 				fill(par, _Alg.begin_in(), _Alg.end_in(), FILL_VALUE);
 			}
 
-			{  //vec
+			{  //par_vec
 				FillAlgoTest<_IterCat> _Alg;
-				fill(vec, _Alg.begin_in(), _Alg.end_in(), FILL_VALUE);
+				fill(par_vec, _Alg.begin_in(), _Alg.end_in(), FILL_VALUE);
 			}
 		}
 
@@ -66,9 +66,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(fill_n(par, _Alg.begin_in(), _Alg.size_in(), FILL_VALUE));
 			}
 
-			{  //vec
+			{  //par_vec
 				FillAlgoTest<_IterCat> _Alg(true);
-				_Alg.set_result(fill_n(vec, _Alg.begin_in(), _Alg.size_in(), FILL_VALUE));
+				_Alg.set_result(fill_n(par_vec, _Alg.begin_in(), _Alg.size_in(), FILL_VALUE));
 			}
 		}
 
@@ -92,9 +92,9 @@ namespace ParallelSTL_Tests
 				uninitialized_fill(par, _Alg.begin_in(), _Alg.end_in(), FILL_VALUE);
 			}
 
-			{  //vec
+			{  //par_vec
 				FillAlgoTest<_IterCat> _Alg;
-				uninitialized_fill(vec, _Alg.begin_in(), _Alg.end_in(), FILL_VALUE);
+				uninitialized_fill(par_vec, _Alg.begin_in(), _Alg.end_in(), FILL_VALUE);
 			}
 		}
 
@@ -155,9 +155,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(uninitialized_fill_n(par, _Alg.begin_in(), _Alg.size_in(), FILL_VALUE));
 			}
 
-			{  //vec
+			{  //par_vec
 				FillAlgoTest<_IterCat> _Alg(true);
-				_Alg.set_result(uninitialized_fill_n(vec, _Alg.begin_in(), _Alg.size_in(), FILL_VALUE));
+				_Alg.set_result(uninitialized_fill_n(par_vec, _Alg.begin_in(), _Alg.size_in(), FILL_VALUE));
 			}
 		}
 

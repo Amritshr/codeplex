@@ -135,6 +135,15 @@
     <ClCompile Include="..\unique.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\includes.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\coordinate.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\array_view.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Images\UnitTestLogo.scale-100.png">

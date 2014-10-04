@@ -206,12 +206,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\algorithm.cpp" />
     <ClCompile Include="..\..\src\event.cpp" />
     <ClCompile Include="..\..\src\scheduler_app.cpp" />
     <ClCompile Include="..\..\src\taskgroup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\experimental\algorithm" />
+    <None Include="..\..\include\experimental\array_view" />
+    <None Include="..\..\include\experimental\coordinate" />
     <None Include="..\..\include\experimental\exception" />
     <None Include="..\..\include\experimental\execution_policy" />
     <None Include="..\..\include\experimental\memory" />
@@ -220,8 +223,10 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\experimental\impl\adjacent_find.h" />
     <ClInclude Include="..\..\include\experimental\impl\algorithm_impl.h" />
-    <ClInclude Include="..\..\include\experimental\impl\algorithm_scheduler_app.h" />
+    <ClInclude Include="..\..\include\experimental\impl\algorithm_scheduler.h" />
     <ClInclude Include="..\..\include\experimental\impl\all_any_none_of.h" />
+    <ClInclude Include="..\..\include\experimental\impl\array_view.h" />
+    <ClInclude Include="..\..\include\experimental\impl\coordinate.h" />
     <ClInclude Include="..\..\include\experimental\impl\copy.h" />
     <ClInclude Include="..\..\include\experimental\impl\count.h" />
     <ClInclude Include="..\..\include\experimental\impl\defines.h" />

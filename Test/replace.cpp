@@ -87,7 +87,7 @@ namespace ParallelSTL_Tests
 		template<typename _IterCat>
 		void RunReplace()
 		{
-			{  // seq				
+			{  // seq
 				ReplaceAlgoTest<_IterCat> _Alg(replace_algo);
 				replace(seq, _Alg.begin_in(), _Alg.end_in(), _Alg.old_value(), _Alg.new_value());
 			}
@@ -97,9 +97,9 @@ namespace ParallelSTL_Tests
 				replace(par, _Alg.begin_in(), _Alg.end_in(), _Alg.old_value(), _Alg.new_value());
 			}
 
-			{  //vec
+			{  //par_vec
 				ReplaceAlgoTest<_IterCat> _Alg(replace_algo);
-				replace(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.old_value(), _Alg.new_value());
+				replace(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.old_value(), _Alg.new_value());
 			}
 		}
 
@@ -122,41 +122,42 @@ namespace ParallelSTL_Tests
 				replace_if(par, _Alg.begin_in(), _Alg.end_in(), _Alg.predicate(), _Alg.new_value());
 			}
 
-			{  //vec
+			{  //par_vec
 				ReplaceAlgoTest<_IterCat> _Alg(replace_if_algo);
-				replace_if(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.predicate(), _Alg.new_value());
+				replace_if(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.predicate(), _Alg.new_value());
 			}
 		}
 
 		TEST_METHOD(ReplaceIf)
 		{
 			RunReplaceIf<random_access_iterator_tag>();
-			RunReplaceIf<forward_iterator_tag>();		
+			RunReplaceIf<forward_iterator_tag>();
 		}
 
-		template<typename _IterCat>
+		template<typename _IterCat, typename _IterCat2 = _IterCat>
 		void RunReplaceCopy()
 		{
 			{  // seq
-				ReplaceAlgoTest<_IterCat> _Alg(replace_copy_algo);
+				ReplaceAlgoTest<_IterCat, _IterCat2> _Alg(replace_copy_algo);
 				replace_copy(seq, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.old_value(), _Alg.new_value());
 			}
 
 			{  //par
-				ReplaceAlgoTest<_IterCat> _Alg(replace_copy_algo);
+				ReplaceAlgoTest<_IterCat, _IterCat2> _Alg(replace_copy_algo);
 				replace_copy(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.old_value(), _Alg.new_value());
 			}
 
-			{  //vec
-				ReplaceAlgoTest<_IterCat> _Alg(replace_copy_algo);
-				replace_copy(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.old_value(), _Alg.new_value());
+			{  //par_vec
+				ReplaceAlgoTest<_IterCat, _IterCat2> _Alg(replace_copy_algo);
+				replace_copy(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.old_value(), _Alg.new_value());
 			}
 		}
 
 		TEST_METHOD(ReplaceCopy)
 		{
 			RunReplaceCopy<random_access_iterator_tag>();
-			RunReplaceCopy<forward_iterator_tag>();			
+			RunReplaceCopy<forward_iterator_tag>();
+			RunReplaceCopy<input_iterator_tag, output_iterator_tag>();
 		}
 
 		template<typename _IterCat, typename _IterCat2 = _IterCat>
@@ -172,9 +173,9 @@ namespace ParallelSTL_Tests
 				replace_copy_if(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.predicate(), _Alg.new_value());
 			}
 
-			{  //vec
+			{  //par_vec
 				ReplaceAlgoTest<_IterCat, _IterCat2> _Alg(replace_copy_if_algo);
-				replace_copy_if(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.predicate(), _Alg.new_value());
+				replace_copy_if(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.predicate(), _Alg.new_value());
 			}
 		}
 

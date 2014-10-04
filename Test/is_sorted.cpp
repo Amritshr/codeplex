@@ -46,9 +46,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(is_sorted(par, _Alg.begin_in(), _Alg.end_in()));
 			}
 
-			{  //vec
+			{  //par_vec
 				SortAlgoTest<_IterCat> _Alg(_IsSorted);
-				_Alg.set_result(is_sorted(vec, _Alg.begin_in(), _Alg.end_in()));
+				_Alg.set_result(is_sorted(par_vec, _Alg.begin_in(), _Alg.end_in()));
 			}
 		}
 
@@ -65,9 +65,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(is_sorted(par, _Alg.begin_in(), _Alg.end_in(), _Alg.less()));
 			}
 
-			{  //vec
+			{  //par_vec
 				SortAlgoTest<_IterCat> _Alg(_IsSorted);
-				_Alg.set_result(is_sorted(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.less()));
+				_Alg.set_result(is_sorted(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.less()));
 			}
 		}
 
@@ -78,6 +78,10 @@ namespace ParallelSTL_Tests
 
 			std::vector<int> vec_one = { 1 };
 			Assert::IsTrue(is_sorted(par, std::begin(vec_one), std::end(vec_one)));
+
+			// Sequence with duplicates
+			std::vector<int> vec_dups = { 0, 1, 1, 1, 2 };
+			Assert::IsTrue(is_sorted(par, std::begin(vec_dups), std::end(vec_dups)));
 
 			// Compile time check only
 			std::vector<MovableOnly> vec_movable, vec_moveable_dest;
@@ -192,9 +196,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(is_sorted_until(par, _Alg.begin_in(), _Alg.end_in()));
 			}
 
-			{  //vec
+			{  //par_vec
 				SortUntilAlgoTest<_IterCat> _Alg(_IsSorted);
-				_Alg.set_result(is_sorted_until(vec, _Alg.begin_in(), _Alg.end_in()));
+				_Alg.set_result(is_sorted_until(par_vec, _Alg.begin_in(), _Alg.end_in()));
 			}
 		}
 
@@ -211,9 +215,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(is_sorted_until(par, _Alg.begin_in(), _Alg.end_in(), _Alg.less()));
 			}
 
-			{  //vec
+			{  //par_vec
 				SortUntilAlgoTest<_IterCat> _Alg(_IsSorted);
-				_Alg.set_result(is_sorted_until(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.less()));
+				_Alg.set_result(is_sorted_until(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.less()));
 			}
 		}
 
@@ -240,7 +244,7 @@ namespace ParallelSTL_Tests
 			std::vector<int> vec3(COLLECTION_SIZE);
 			std::iota(std::begin(vec3), std::end(vec3), 0);
 			vec3[_Pos - 1] = COLLECTION_SIZE; // not sorted element at the beginning of the chunk
-			vec3[_Pos] = COLLECTION_SIZE; // not sorted element at the end of the chunk
+			vec3[_Pos] = COLLECTION_SIZE - 1; // not sorted element at the end of the chunk
 			_It = is_sorted_until(dbg, std::begin(vec3), std::end(vec3));
 			Assert::IsTrue(static_cast<size_t>(std::distance(std::begin(vec3), _It)) == _Pos);
 		}

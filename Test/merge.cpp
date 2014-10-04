@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+#pragma warning (disable : 4503) // decorated name length exceeded, name was truncated
+
 namespace ParallelSTL_Tests
 {
 	template<typename _ExecutionPolicy>
@@ -44,6 +46,23 @@ namespace ParallelSTL_Tests
 
 		inplace_merge(_Policy, data1.begin(), data1.begin() + middle, data1.end(), [](const pair<size_t, size_t> &left, const pair<size_t, size_t> &right) { return left.first < right.first; });
 		Assert::IsTrue(std::is_sorted(data1.begin(), data1.end()));
+
+		struct NoDefaultConstructor
+		{
+			int m_val;
+		public:
+			NoDefaultConstructor(int val)
+			{
+				m_val = val;
+			}
+			bool operator <(const NoDefaultConstructor &other) const
+			{
+				return m_val < other.m_val;
+			}
+		};
+		vector<NoDefaultConstructor> items = {1, 3, 5, 7, 9, 11, 13, 15, 2, 4, 6, 8, 10, 12, 14, 16};
+		inplace_merge(_Policy, items.begin(), items.begin() + 8, items.end());
+		Assert::IsTrue(std::is_sorted(items.begin(), items.end()));
 	}
 
 	TEST_CLASS(merge_tests)
@@ -85,14 +104,14 @@ namespace ParallelSTL_Tests
 		{
 			MergeImpl(seq);
 			MergeImpl(par);
-			MergeImpl(vec);
+			MergeImpl(par_vec);
 		}
 
 		TEST_METHOD(ImplaceMergeSpecial)
 		{
 			InplaceMergeImpl(seq);
 			InplaceMergeImpl(par);
-			InplaceMergeImpl(vec);
+			InplaceMergeImpl(par_vec);
 		}
 
 		template<typename _IterCat, typename _IterCat2 = _IterCat>
@@ -108,7 +127,7 @@ namespace ParallelSTL_Tests
 			}
 			{
 				MergeAlgoTest<_IterCat, _IterCat2> _Alg;
-				_Alg.set_result(merge(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_in2(), _Alg.end_in2(), _Alg.begin_dest()));
+				_Alg.set_result(merge(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_in2(), _Alg.end_in2(), _Alg.begin_dest()));
 			}
 
 		}
@@ -165,7 +184,7 @@ namespace ParallelSTL_Tests
 			}
 			{
 				InplaceMergeAlgoTest<_IterCat> _Alg;
-				inplace_merge(vec, _Alg.begin_in(), _Alg._MidIterator(), _Alg.end_in());
+				inplace_merge(par_vec, _Alg.begin_in(), _Alg._MidIterator(), _Alg.end_in());
 			}
 		}
 

@@ -98,9 +98,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(min_element(par, _Alg.begin_in(), _Alg.end_in()));
 			}
 
-			{  //vec
+			{  //par_vec
 				MinMaxAlgoTest<_IterCat> _Alg(Min);
-				_Alg.set_result(min_element(vec, _Alg.begin_in(), _Alg.end_in()));
+				_Alg.set_result(min_element(par_vec, _Alg.begin_in(), _Alg.end_in()));
 			}
 		}
 
@@ -123,9 +123,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(min_element(par, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				MinMaxAlgoTest<_IterCat> _Alg(Min, true);
-				_Alg.set_result(min_element(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
+				_Alg.set_result(min_element(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 		}
 
@@ -184,9 +184,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(max_element(par, _Alg.begin_in(), _Alg.end_in()));
 			}
 
-			{  //vec
+			{  //par_vec
 				MinMaxAlgoTest<random_access_iterator_tag> _Alg(Max);
-				_Alg.set_result(max_element(vec, _Alg.begin_in(), _Alg.end_in()));
+				_Alg.set_result(max_element(par_vec, _Alg.begin_in(), _Alg.end_in()));
 			}
 		}
 
@@ -209,9 +209,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(max_element(par, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				MinMaxAlgoTest<random_access_iterator_tag> _Alg(Max, true);
-				_Alg.set_result(max_element(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
+				_Alg.set_result(max_element(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 		}
 
@@ -270,9 +270,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_pair_result(minmax_element(par, _Alg.begin_in(), _Alg.end_in()));
 			}
 
-			{  //vec
+			{  //par_vec
 				MinMaxAlgoTest<_IterCat> _Alg(MinMax);
-				_Alg.set_pair_result(minmax_element(vec, _Alg.begin_in(), _Alg.end_in()));
+				_Alg.set_pair_result(minmax_element(par_vec, _Alg.begin_in(), _Alg.end_in()));
 			}
 		}
 
@@ -295,9 +295,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_pair_result(minmax_element(par, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				MinMaxAlgoTest<_IterCat> _Alg(MinMax, true);
-				_Alg.set_pair_result(minmax_element(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
+				_Alg.set_pair_result(minmax_element(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 		}
 

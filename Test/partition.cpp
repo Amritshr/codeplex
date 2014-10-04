@@ -48,9 +48,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(partition(par, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				PartitionAlgoTest<_IterCat> _Alg;
-				_Alg.set_result(partition(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
+				_Alg.set_result(partition(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 		}
 
@@ -90,9 +90,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(stable_partition(par, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				PartitionAlgoTest<_IterCat> _Alg(true);
-				_Alg.set_result(stable_partition(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
+				_Alg.set_result(stable_partition(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback()));
 			}
 		}
 
@@ -173,9 +173,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_pair_result(partition_copy(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.begin_dest2(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				ParitionCopyAlgoTest<_IterCat, _IterCat2> _Alg;
-				_Alg.set_pair_result(partition_copy(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.begin_dest2(), _Alg.callback()));
+				_Alg.set_pair_result(partition_copy(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.begin_dest2(), _Alg.callback()));
 			}
 		}
 

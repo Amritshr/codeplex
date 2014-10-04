@@ -67,9 +67,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(remove(par, _Alg.begin_in(), _Alg.end_in(), MARKER_VAL));
 			}
 
-			{  //vec
+			{  //par_vec
 				RemoveAlgoTest<_IterCat> _Alg(false);
-				_Alg.set_result(remove(vec, _Alg.begin_in(), _Alg.end_in(), MARKER_VAL));
+				_Alg.set_result(remove(par_vec, _Alg.begin_in(), _Alg.end_in(), MARKER_VAL));
 			}
 		}
 
@@ -96,9 +96,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(remove_copy(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VAL));
 			}
 
-			{  //vec
+			{  //par_vec
 				RemoveAlgoTest<_IterCat, _IterCat2> _Alg(true);
-				_Alg.set_result(remove_copy(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VAL));
+				_Alg.set_result(remove_copy(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), MARKER_VAL));
 			}
 		}
 
@@ -122,9 +122,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(remove_copy_if(par, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				RemoveAlgoTest<_IterCat, _IterCat2> _Alg(true);
-				_Alg.set_result(remove_copy_if(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback()));
+				_Alg.set_result(remove_copy_if(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.begin_dest(), _Alg.callback()));
 			}
 		}
 

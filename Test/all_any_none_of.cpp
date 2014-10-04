@@ -74,9 +74,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(any_of(par, _Alg.begin_in(), _Alg.end_in(), _Alg.predicate()));
 			}
 
-			{  //vec
+			{  //par_vec
 				AllAnyNoneAlgoTest<_IterCat> _Alg(_Type, _Expected);
-				_Alg.set_result(any_of(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.predicate()));
+				_Alg.set_result(any_of(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.predicate()));
 			}
 		}
 
@@ -109,9 +109,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(none_of(par, _Alg.begin_in(), _Alg.end_in(), _Alg.predicate()));
 			}
 
-			{  //vec
+			{  //par_vec
 				AllAnyNoneAlgoTest<_IterCat> _Alg(_Type, _Expected);
-				_Alg.set_result(none_of(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.predicate()));
+				_Alg.set_result(none_of(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.predicate()));
 			}
 		}
 
@@ -144,9 +144,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(all_of(par, _Alg.begin_in(), _Alg.end_in(), _Alg.predicate()));
 			}
 
-			{  //vec
+			{  //par_vec
 				AllAnyNoneAlgoTest<_IterCat> _Alg(_Type, _Expected);
-				_Alg.set_result(all_of(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.predicate()));
+				_Alg.set_result(all_of(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.predicate()));
 			}
 		}
 

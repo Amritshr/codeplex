@@ -7,10 +7,10 @@ namespace ParallelSTL_Tests
 	inline _InIt for_each_impl(_InIt _First, _Diff _Count, _Fn1 _Func)
 	{
 		if (_Count > 0) {
-			return details::_Partitioner<_ExPolicy>::_For_Each(_First, _Count, [_Func](_InIt _Begin, size_t _Count){
+			return details::_Partitioner<_ExPolicy>::_For_Each(_First, _Count, _Func, [](_InIt _Begin, size_t _Count, _Fn1 _UserFunc){
 
-				details::LoopHelper<_ExPolicy, _InIt>::Loop(_Begin, _Count, [&_Func](const _InIt::reference _It){
-					_Func(_It);
+				details::LoopHelper<_ExPolicy, _InIt>::Loop(_Begin, _Count, [&_UserFunc](const _InIt::reference _It){
+					_UserFunc(_It);
 				});
 			});
 		}
@@ -176,9 +176,9 @@ namespace ParallelSTL_Tests
 				for_each(par, _Alg.begin_in(), _Alg.end_in(), _Alg.callback());
 			}
 
-			{  //vec
+			{  //par_vec
 				ForEachAlgoTest<_IterCat> _Alg(false);
-				for_each(vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback());
+				for_each(par_vec, _Alg.begin_in(), _Alg.end_in(), _Alg.callback());
 			}
 		}
 
@@ -202,9 +202,9 @@ namespace ParallelSTL_Tests
 				_Alg.set_result(for_each_n(par, _Alg.begin_in(), _Alg.size_in(), _Alg.callback()));
 			}
 
-			{  //vec
+			{  //par_vec
 				ForEachAlgoTest<_IterCat> _Alg;
-				_Alg.set_result(for_each_n(vec, _Alg.begin_in(), _Alg.size_in(), _Alg.callback()));
+				_Alg.set_result(for_each_n(par_vec, _Alg.begin_in(), _Alg.size_in(), _Alg.callback()));
 			}
 		}
 
@@ -232,12 +232,14 @@ namespace ParallelSTL_Tests
 				});
 			}
 
-			{  //vec
+			/* std::par_vec doesn't catch exceptions thus it can lead to undefined behaviour
+			{  //par_vec
 				ForEachExAlgoTest<_IterCat> _Alg;
 				_Alg.Catch([&](){
-					_Alg.set_result(for_each_n(vec, _Alg.begin_in(), _Alg.size_in(), _Alg.callback()));
+					_Alg.set_result(for_each_n(par_vec, _Alg.begin_in(), _Alg.size_in(), _Alg.callback()));
 				});
 			}
+			*/
 		}
 
 		TEST_METHOD(ForEachThrow)
@@ -245,6 +247,101 @@ namespace ParallelSTL_Tests
 			RunForEachThrow<random_access_iterator_tag>();
 			RunForEachThrow<forward_iterator_tag>();
 			RunForEachThrow<input_iterator_tag>();		
+		}
+
+		TEST_METHOD(ForEachPerfTest)
+		{
+			Logger::WriteMessage("-----------Begin performance tests for foreach----------");
+			using namespace std::experimental::D4087;
+			auto nestSerial = [] (int n)
+			{
+				bounds<1> bnd{ n };
+				int sum = 0;
+				// Using serial implementation
+				for_each(std::begin(bnd), std::end(bnd), [&](index<1> idx) {
+					for_each(std::begin(bnd), std::end(bnd), [&](index<1> idx2) {
+						sum = (sum + idx[0] * idx2[0]) % 1000000009;
+					});
+				});
+				return sum;
+			};
+
+			auto nestParallel = [] (int n)
+			{
+				bounds<1> bnd{ n };
+				int sum = 0;
+				// Using serial implementation
+				for_each(par, std::begin(bnd), std::end(bnd), [&](index<1> idx) {
+					for_each(par, std::begin(bnd), std::end(bnd), [&](index<1> idx2) {
+						sum = (sum + idx[0] * idx2[0]) % 1000000009;
+					});
+				});
+				return sum;
+			};
+
+			auto nestVec = [] (int n)
+			{
+				bounds<1> bnd{ n };
+				int sum = 0;
+				// Using serial implementation
+				for_each(par, std::begin(bnd), std::end(bnd), [&](index<1> idx) {
+					for_each(par_vec, std::begin(bnd), std::end(bnd), [&](index<1> idx2) {
+						sum = (sum + idx[0] * idx2[0]) % 1000000009;
+					});
+				});
+				return sum;
+			};
+
+
+			auto unevenNestSerial = [](int n)
+			{
+				bounds<1> bnd1{ 2 };
+				bounds<1> bnd2{ n };
+				int sum = 0;
+				// Using par_vec implementation
+				for_each(par, std::begin(bnd1), std::end(bnd1), [&](index<1> idx) {
+					for_each(seq, std::begin(bnd2), std::end(bnd2), [&](index<1> idx2) {
+						sum = (sum + idx[0] * idx2[0]) % 1000000009;
+					});
+				});
+				return sum;
+			};
+
+			auto unevenNestVec = [] (int n)
+			{
+				bounds<1> bnd1{ 2 };
+				bounds<1> bnd2{ n };
+				int sum = 0;
+				// Using par_vec implementation
+				for_each(par, std::begin(bnd1), std::end(bnd1), [&](index<1> idx) {
+					for_each(par_vec, std::begin(bnd2), std::end(bnd2), [&](index<1> idx2) {
+						sum = (sum + idx[0] * idx2[0]) % 1000000009;
+					});
+				});
+				return sum;
+			};
+
+			auto unevenNestParallel = [] (int n)
+			{
+				bounds<1> bnd1{ 2 };
+				bounds<1> bnd2{ n };
+				int sum = 0;
+				// Using serial implementation
+				for_each(par, std::begin(bnd1), std::end(bnd1), [&](index<1> idx) {
+					for_each(par, std::begin(bnd2), std::end(bnd2), [&](index<1> idx2) {
+						sum = (sum + idx[0] * idx2[0]) % 1000000009;
+					});
+				});
+				return sum;
+			};
+			measure_time([&] { nestSerial(10000); }, "nested serial loop");
+			measure_time([&] { nestParallel(10000); }, "nested parallel loop");
+			measure_time([&] { nestVec(10000); }, "nested vectorized loops");
+
+			measure_time([&] { unevenNestSerial(100000000); }, "uneven nested serial loops");
+			measure_time([&] { unevenNestParallel(100000000); }, "uneven nested parallel loops");
+			measure_time([&] { unevenNestVec(100000000); }, "uneven nested vectorized loops");
+			Logger::WriteMessage("-----------End performance tests----------");
 		}
 	}; //  TEST_CLASS(foreach_tests)
 }

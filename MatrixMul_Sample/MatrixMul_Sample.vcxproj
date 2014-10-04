@@ -149,7 +149,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="coordinate.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.21805.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParallelSTLDesktop", "Build\ParallelSTLDesktop14\ParallelSTLDesktop.vcxproj", "{A15E2DCA-A15A-4477-BEBD-567A8DE68360}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParallelSTL_Tests", "Test\Desktop14\ParallelSTL_Tests.vcxproj", "{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Debug|ARM.ActiveCfg = Debug|Win32
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Debug|Win32.Build.0 = Debug|Win32
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Debug|x64.ActiveCfg = Debug|x64
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Debug|x64.Build.0 = Debug|x64
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Debug|x86.ActiveCfg = Debug|Win32
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Debug|x86.Build.0 = Debug|Win32
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Release|ARM.ActiveCfg = Release|Win32
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Release|Win32.ActiveCfg = Release|Win32
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Release|Win32.Build.0 = Release|Win32
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Release|x64.ActiveCfg = Release|x64
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Release|x64.Build.0 = Release|x64
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Release|x86.ActiveCfg = Release|Win32
+		{A15E2DCA-A15A-4477-BEBD-567A8DE68360}.Release|x86.Build.0 = Release|Win32
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Debug|ARM.ActiveCfg = Debug|Win32
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Debug|Win32.Build.0 = Debug|Win32
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Debug|x64.ActiveCfg = Debug|x64
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Debug|x64.Build.0 = Debug|x64
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Debug|x86.ActiveCfg = Debug|Win32
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Debug|x86.Build.0 = Debug|Win32
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Release|ARM.ActiveCfg = Release|Win32
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Release|Win32.ActiveCfg = Release|Win32
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Release|Win32.Build.0 = Release|Win32
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Release|x64.ActiveCfg = Release|x64
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Release|x64.Build.0 = Release|x64
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Release|x86.ActiveCfg = Release|Win32
+		{EE3E0736-E09A-4BE3-BEB2-D6EE4C83C14B}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://vstfdevdiv.redmond.corp.microsoft.com:8080/devdiv2
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Build\\ParallelSTLDesktop14\\ParallelSTLDesktop.vcxproj
+		SccProjectName1 = Build/ParallelSTLDesktop14
+		SccLocalPath1 = Build\\ParallelSTLDesktop14
+		SccProjectUniqueName2 = Test\\Desktop14\\ParallelSTL_Tests.vcxproj
+		SccProjectName2 = Test/Desktop14
+		SccLocalPath2 = Test\\Desktop14
+	EndGlobalSection
+EndGlobal
